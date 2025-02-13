@@ -20,3 +20,7 @@ export interface IParams {
   page?: string | number;
   limit?: string | number;
 }
+
+export interface IError {
+  rejectValue: string;
+}

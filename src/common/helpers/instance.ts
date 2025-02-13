@@ -27,7 +27,7 @@ class ApiService {
 
   private constructor() {
     this.fetcher = axios.create({
-      baseURL: 'https://api-dev.rezneed.com/api', //import.meta.env.VITE_BASE_URL_FETCH + "/api",
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
       timeout: 10000,
       headers: this.getHeaders(),
     });
@@ -43,8 +43,12 @@ class ApiService {
   }
 
   private getHeaders(): RawAxiosRequestHeaders {
-    const language = localStorage.getItem('lang') || 'en';
-    const token = localStorage.getItem('access_token');
+    let language;
+    let token;
+    if (typeof window !== 'undefined') {
+      language = localStorage.getItem('lang') || 'en';
+      token = localStorage.getItem('access_token');
+    }
 
     const header = {
       'Accept-Language': language,
@@ -121,7 +125,10 @@ class ApiService {
   };
 
   private async refreshToken(): Promise<string | null> {
-    const token = localStorage.getItem('refresh_token');
+    let token;
+    if (typeof window !== 'undefined') {
+      token = localStorage?.getItem('access_token');
+    }
 
     if (!token) {
       DEV_LOGGER(
@@ -142,8 +149,12 @@ class ApiService {
       if (response.result) {
         const newAccessToken = response.data.access_token;
         const newRefreshToken = response.data.refresh_token;
-        localStorage.setItem('access_token', newAccessToken);
-        localStorage.setItem('refresh_token', newRefreshToken);
+
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('access_token', newAccessToken);
+          localStorage.setItem('refresh_token', newRefreshToken);
+        }
+
         this.fetcher.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
         DEV_LOGGER(LoggerKeys.token, 'Token refreshed successfully');
         return newAccessToken;
@@ -159,8 +170,10 @@ class ApiService {
 
   public clearSession = (): void => {
     DEV_LOGGER(LoggerKeys.token, 'Session cleared');
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+    }
     delete this.fetcher.defaults.headers.common.Authorization;
     window.location.href = '/auth/login';
   };
@@ -180,9 +193,11 @@ class ApiService {
   };
 
   private initialize(): void {
-    const accessToken = localStorage.getItem('access_token');
-    if (accessToken) {
-      this.fetcher.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+    if (typeof window !== 'undefined') {
+      const accessToken = localStorage.getItem('access_token');
+      if (accessToken) {
+        this.fetcher.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+      }
     }
   }
 

@@ -4,7 +4,9 @@ import { useState, useEffect } from 'react';
 
 const ProjectsTable = () => {
   const [loading, setLoading] = useState(true);
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<
+    { id: string; title: string; desc: string; created: string }[]
+  >([]);
   //   const router = useRouter();
 
   // Mock data

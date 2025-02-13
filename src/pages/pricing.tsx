@@ -1,5 +1,5 @@
 import { Card, Button, Typography, Row, Col } from 'antd';
-import styles from '@/styles/pricing.module.css';
+import styles from '@/common/theme/pricing.module.css';
 
 const { Title, Text } = Typography;
 
