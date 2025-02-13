@@ -1,12 +1,13 @@
 import { Form, Input, Button, Typography, Card } from 'antd';
 import { useRouter } from 'next/router';
-import styles from '@/styles/login.module.css';
+import styles from '@/common/theme/login.module.css';
 import { useDispatch } from 'react-redux';
 import { loginUser } from '@/common/store/slices/authSlice';
+import withAuth, { CheckType } from '@/common/hoc/withAuth';
 
 const { Title, Text } = Typography;
 
-export default function Login() {
+function Login() {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -81,3 +82,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default withAuth(Login, CheckType.USER);

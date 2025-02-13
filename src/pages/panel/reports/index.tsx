@@ -1,10 +1,11 @@
 import { PanelLayout } from '@/common/components/PanelLayout';
+import withAuth, { CheckType } from '@/common/hoc/withAuth';
 import ReportsContent from '@/modules/panel/ReportsContent';
 import { Typography } from 'antd';
 
 const { Title } = Typography;
 
-export default function Reports() {
+function Reports() {
   return (
     <PanelLayout>
       <Title level={2}>Reports</Title>
@@ -12,3 +13,5 @@ export default function Reports() {
     </PanelLayout>
   );
 }
+
+export default withAuth(Reports, CheckType.AUTH);

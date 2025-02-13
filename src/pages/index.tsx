@@ -1,24 +1,19 @@
-import { Layout, Menu, Button, Typography } from 'antd';
+import { Layout, Menu, Button, Typography, Flex } from 'antd';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
-import styles from '../styles/home.module.css';
+import styles from '@/common/theme/home.module.css';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import LanguageDropdown from '@/common/components/LangSelect';
+import { useTranslation } from 'next-i18next';
+import withAuth, { CheckType } from '@/common/hoc/withAuth';
 
 const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
 
-export async function getServerSideProps({ locale = 'az' }: any) {
-  let languages = { ...(await serverSideTranslations(locale, ['common'])) };
-
-  return {
-    props: {
-      ...languages,
-    },
-  };
-}
-
-export default function Home() {
+function Home() {
   const router = useRouter();
+
+  const { t } = useTranslation('common');
 
   // Refs for sections
   const aboutRef = useRef(null);
@@ -53,14 +48,18 @@ export default function Home() {
             Contact
           </Menu.Item>
         </Menu>
-        <Button type="primary" onClick={() => router.push('/auth/login')}>
-          Login
-        </Button>
+
+        <Flex gap={12}>
+          <Button type="primary" onClick={() => router.push('/auth/login')}>
+            Login
+          </Button>
+          <LanguageDropdown />
+        </Flex>
       </Header>
 
       {/* Hero Section */}
       <Content className={styles.content}>
-        <Title className={styles.title}>Welcome to SkyFlow</Title>
+        <Title className={styles.title}>{t('title')}</Title>
         <Paragraph className={styles.subtitle}>
           The next-generation cloud solution for seamless data management.
         </Paragraph>
@@ -100,4 +99,16 @@ export default function Home() {
       </Footer>
     </Layout>
   );
+}
+
+export default withAuth(Home, CheckType.USER);
+
+export async function getServerSideProps({ locale = 'az' }: any) {
+  let languages = { ...(await serverSideTranslations(locale, ['common'])) };
+
+  return {
+    props: {
+      ...languages,
+    },
+  };
 }
