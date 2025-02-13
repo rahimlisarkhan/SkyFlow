@@ -8,12 +8,17 @@ import {
   PoweroffOutlined,
 } from '@ant-design/icons';
 import styles from './PanelLayout.module.css';
+import { ROUTER } from '@/common/constants/router';
+import useCheckRole from '@/common/hooks/useCheckRole';
+import { ROLE } from '@/types/profile.types';
 
 const { Sider, Content } = Layout;
 
 export const PanelLayout = ({ children }: PropsWithChildren) => {
   const [collapsed, setCollapsed] = useState(false);
   const router = useRouter();
+
+  const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 
   console.log('router', router);
 
@@ -59,12 +64,17 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
           <Menu.Item key="/panel" icon={<DashboardOutlined />}>
             Dashboard
           </Menu.Item>
-          <Menu.Item key="/panel/reports" icon={<BarChartOutlined />}>
-            Reports
-          </Menu.Item>
-          <Menu.Item key="/panel/projects" icon={<FileTextOutlined />}>
-            Projects
-          </Menu.Item>
+          {checkRole(
+            <Menu.Item key="/panel/reports" icon={<BarChartOutlined />}>
+              Reports
+            </Menu.Item>
+          )}
+          {checkRole(
+            <Menu.Item key="/panel/projects" icon={<FileTextOutlined />}>
+              Projects
+            </Menu.Item>
+          )}
+
           <Menu.Item key="/logout" icon={<PoweroffOutlined />}>
             Logout
           </Menu.Item>
