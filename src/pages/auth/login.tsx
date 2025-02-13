@@ -1,11 +1,14 @@
 import { Form, Input, Button, Typography, Card } from 'antd';
 import { useRouter } from 'next/router';
 import styles from '@/styles/login.module.css';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '@/common/store/slices/authSlice';
 
 const { Title, Text } = Typography;
 
 export default function Login() {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   interface LoginFormValues {
     email: string;
@@ -15,7 +18,9 @@ export default function Login() {
   const onFinish = (values: LoginFormValues) => {
     console.log('Login Data:', values);
     // Simulate login success
-    router.push('/');
+
+    // dispatch(loginUser(values));
+    // router.push('/');
   };
 
   return (

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.23.0",
+    "@reduxjs/toolkit": "^2.5.1",
     "antd": "^5.24.0",
     "axios": "^1.7.9",
     "highcharts": "^12.1.2",
@@ -20,7 +21,8 @@
     "next-i18next": "^10.5.0",
     "next-plugin-antd-less": "^1.8.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

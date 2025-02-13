@@ -4,9 +4,12 @@ export interface ITokenResponse {
 }
 
 export interface IProfile {
-  id: number;
-  name: string;
-  surname: string;
-  email: string;
-  created_at: string;
+  tokens: ITokenResponse;
+  profile: {
+    id: number;
+    name: string;
+    surname: string;
+    email: string;
+    created_at: string;
+  };
 }
