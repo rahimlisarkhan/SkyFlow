@@ -1,0 +1,40 @@
+.container {
+  text-align: center;
+  padding: 60px 20px;
+  height: 100vh;
+  background: #f9f9f9;
+}
+
+.title {
+  margin-bottom: 40px;
+  color: #333;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.price {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.features li {
+  margin: 8px 0;
+  font-size: 14px;
+}

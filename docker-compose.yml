@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  app:
+    env_file: .env
+    container_name: skyflow-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - '3030:3030'
+    restart: always # Ensures the container restarts on failure
