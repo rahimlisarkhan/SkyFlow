@@ -1,4 +1,4 @@
-# [Your SaaS Platform Name] - User Dashboard Module
+# SkyFlow App - Cloud-powered workflow management
 
 ## Overview
 
