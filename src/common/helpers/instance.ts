@@ -27,7 +27,7 @@ class ApiService {
 
   private constructor() {
     this.fetcher = axios.create({
-      baseURL: 'https://api-dev.rezneed.com/api', //import.meta.env.VITE_BASE_URL_FETCH + "/api",
+      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
       timeout: 10000,
       headers: this.getHeaders(),
     });
