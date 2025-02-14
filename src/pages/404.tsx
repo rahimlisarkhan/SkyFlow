@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
 import { NotFound } from '@/common/components/NotFound';
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 
 const NotFoundPage = () => {
   const router = useRouter();
-
   const { t } = useTranslation();
 
   return (
@@ -22,7 +21,7 @@ const NotFoundPage = () => {
 
 export default NotFoundPage;
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       ...(await serverSideTranslations(locale as string, ['common'])),
