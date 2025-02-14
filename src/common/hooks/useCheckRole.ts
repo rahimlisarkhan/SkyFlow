@@ -1,11 +1,13 @@
-import { ROLE } from "../constants/role";
-import { useAppSelector } from "../store";
+import { ROLE } from '../constants/role';
+import { useAppSelector } from '../store';
 
-const useCheckRole = (allowedRoles: ROLE[]) => {
+const useCheckRole = (globalRoles?: ROLE[]) => {
   const userLicense = useAppSelector((state) => state.auth.user?.license);
 
-  return <T>(item: T): T | null => {
-    return userLicense && allowedRoles.includes(userLicense) ? item : null;
+  return <T>(item: T, parRoles?: ROLE[]): T | null => {
+    return userLicense && (globalRoles ?? parRoles)?.includes(userLicense)
+      ? item
+      : null;
   };
 };
 
