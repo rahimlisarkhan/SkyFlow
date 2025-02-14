@@ -1,3 +1,17 @@
 {
-  "title": "Welcome to SkyFlow"
+  "dashboard": "Dashboard",
+  "report": "Report",
+  "projects": "Projects",
+  "logout": "Logout",
+
+  "title": "Welcome to SkyFlow",
+  "total_sales": "Total Sales",
+  "income": "Income",
+  "total_orders": "Total Orders",
+  "active_users": "Active Users",
+  "pending_rders": "Pending Orders",
+  "completed_tasks": "Completed Tasks",
+  "refunds": "Refunds",
+  "new_customers": "New Customers",
+  "profit": "Profit"
 }

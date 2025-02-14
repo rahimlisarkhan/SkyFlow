@@ -1,67 +1,64 @@
-import React, { ComponentType, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useAppDispatch, useAppSelector } from "../store";
-import { ROUTER } from "../constants/router";
-import Loading from "../components/Loading";
-import { ROLE } from "../constants/role";
-import { initProfile } from "../store/slices/authSlice";
-import { useDebounce } from "../hooks/useDebounce";
-import { LOCAL_STORE } from "../constants/keys";
+import React, { ComponentType, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useAppDispatch, useAppSelector } from '../store';
+import { ROUTER } from '../constants/router';
+import Loading from '../components/Loading';
+import { ROLE } from '../constants/role';
+import { initProfile } from '../store/slices/authSlice';
+import { LOCAL_STORE } from '../constants/keys';
 
 export enum CheckType {
-  AUTH = "AUTH",
-  USER = "USER",
+  AUTH = 'AUTH',
+  USER = 'USER',
 }
 
 const withRoleGuard = <P extends object>(
   WrappedComponent: ComponentType<P>,
   checkType: CheckType = CheckType.AUTH,
-  allowedRoles?: ROLE[],
+  allowedRoles?: ROLE[]
 ) => {
   const AuthHOC = (props: P) => {
     const { user } = useAppSelector((state) => state.auth);
-    const [loading, setLoading] = useState(true); // For clear route view
-
     const router = useRouter();
-    const debounce = useDebounce();
     const dispatch = useAppDispatch();
+
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
       const token = localStorage.getItem(LOCAL_STORE.ACCESS_TOKEN);
 
       if (!user && token) {
-        setLoading(true);
         dispatch(initProfile());
+        setLoading(true);
         return;
       }
 
-      debounce(() => {
-        setLoading(false);
-      });
+      setLoading(false);
 
       if (checkType === CheckType.AUTH && !user) {
-        router.push(ROUTER.LOGIN);
+        router.replace(ROUTER.LOGIN);
         return;
       }
 
       if (checkType === CheckType.USER && user) {
-        router.push(ROUTER.DASHBOARD);
+        router.replace(ROUTER.DASHBOARD);
         return;
       }
 
       if (checkType === CheckType.USER && allowedRoles && user) {
         const isAuthorized = allowedRoles.includes(user.license);
         if (!isAuthorized) {
-          router.push(ROUTER.LOGIN);
+          router.replace(ROUTER.LOGIN);
         }
       }
-    }, [user, checkType, allowedRoles, router]);
+    }, [user]);
 
-    if (loading) {
-      return <Loading />;
-    }
-
-    return <WrappedComponent {...props} />;
+    return (
+      <>
+        {loading && <Loading />}
+        <WrappedComponent {...props} />
+      </>
+    );
   };
 
   return AuthHOC;

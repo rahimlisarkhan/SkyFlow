@@ -10,8 +10,8 @@ export class EndpointResources {
   };
 
   public static readonly panel = {
-    dashboard: '/panel/dashboard',
-    charts: '/panel/charts',
-    projects: '/panel/projects',
+    dashboard: '/dashboard',
+    charts: '/charts',
+    projects: '/projects',
   };
 }

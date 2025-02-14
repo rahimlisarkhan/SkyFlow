@@ -1,8 +1,8 @@
-import { PanelLayout } from "@/modules/panel/PanelLayout";
-import withRoleGuard, { CheckType } from "@/common/hoc/withRoleGuard";
-import ProjectsTable from "@/modules/panel/ProjectsTable";
-import { Typography } from "antd";
-import { ROLE } from "@/common/constants/role";
+import { PanelLayout } from '@/modules/panel/components/PanelLayout';
+import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
+import ProjectsTable from '@/modules/panel/containers/ProjectsTable';
+import { Typography } from 'antd';
+import { ROLE } from '@/common/constants/role';
 
 const { Title } = Typography;
 

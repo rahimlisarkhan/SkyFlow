@@ -1,3 +1,18 @@
 {
-  "title": "SkyFlow'a xoş gəlmisiniz"
+  "title": "SkyFlow'a xoş gəlmisiniz",
+
+  "dashboard": "İdarə paneli",
+  "report": "Hesabat",
+  "projects": "Layihələr",
+  "logout": "Çıxış",
+
+  "total_sales": "Ümumi satış",
+  "income": "Gəlir",
+  "total_orders": "Ümumi sifarişlər",
+  "active_users": "Aktiv istifadəçilər",
+  "pending_rders": "Gözləyən sifarişlər",
+  "completed_tasks": "Tamamlanmış tapşırıqlar",
+  "refunds": "Geri ödənişlər",
+  "new_customers": "Yeni müştərilər",
+  "profit": "Qazanc"
 }

@@ -1,14 +1,20 @@
 import { ROLE } from '@/common/constants/role';
 
 export interface IDashboard {
-  title: string;
+  key: string;
   value: number;
   roles: ROLE[];
 }
 
 export interface IReport {
-  label: string[];
-  data: number[];
+  sales: {
+    label: string[];
+    data: number[];
+  };
+  revenue: {
+    label: string[];
+    data: number[];
+  };
 }
 
 export interface IProject {
