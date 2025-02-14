@@ -1,4 +1,4 @@
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Flex, Avatar, Typography } from 'antd';
 import { PropsWithChildren, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
@@ -8,9 +8,10 @@ import {
   PoweroffOutlined,
 } from '@ant-design/icons';
 import styles from './PanelLayout.module.css';
-import { ROUTER } from '@/common/constants/router';
 import useCheckRole from '@/common/hooks/useCheckRole';
-import { ROLE } from '@/types/profile.types';
+import { ROLE } from '@/common/constants/role';
+import { logout } from '@/common/helpers/instance';
+import { useAppSelector } from '@/common/store';
 
 const { Sider, Content } = Layout;
 
@@ -18,9 +19,10 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
   const [collapsed, setCollapsed] = useState(false);
   const router = useRouter();
 
-  const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
+  const { user } = useAppSelector((state) => state.auth);
 
-  console.log('router', router);
+  const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
+  const checkRoleEnter = useCheckRole([ROLE.ENTERPRISE]);
 
   interface MenuClickEvent {
     key: string;
@@ -64,7 +66,7 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
           <Menu.Item key="/panel" icon={<DashboardOutlined />}>
             Dashboard
           </Menu.Item>
-          {checkRole(
+          {checkRoleEnter(
             <Menu.Item key="/panel/reports" icon={<BarChartOutlined />}>
               Reports
             </Menu.Item>
@@ -75,17 +77,19 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
             </Menu.Item>
           )}
 
-          <Menu.Item key="/logout" icon={<PoweroffOutlined />}>
+          <Menu.Item key="/logout" onClick={logout} icon={<PoweroffOutlined />}>
             Logout
           </Menu.Item>
         </Menu>
       </Sider>
       <Layout className={styles.siteLayout}>
-        <Content style={{ padding: '0 50px', minHeight: '100vh' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-          </Breadcrumb>
+        <Content style={{ padding: '50px', minHeight: '100vh' }}>
+          <Flex justify="flex-end" align="center" gap={12}>
+            <Avatar style={{ background: 'orange' }}>
+              {user?.full_name?.[0]}
+            </Avatar>
+            <Typography.Text>{user?.full_name}</Typography.Text>
+          </Flex>
           <div className={styles.content}>{children}</div>
         </Content>
       </Layout>

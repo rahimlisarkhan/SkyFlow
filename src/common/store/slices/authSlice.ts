@@ -1,4 +1,6 @@
+import { LOCAL_STORE } from '@/common/constants/keys';
 import { AuthAPI } from '@/services/api/auth.api';
+import { ProfileAPI } from '@/services/api/profile.api';
 import { EndpointResources } from '@/services/EndpointResources.g';
 import { IError } from '@/types/api.types';
 import { ILogin } from '@/types/auth.types';
@@ -19,6 +21,33 @@ export const loginUser = createAsyncThunk<IProfile, ILogin, IError>(
   async (credentials, { rejectWithValue }) => {
     try {
       const response = await AuthAPI.login(credentials);
+
+      localStorage.setItem(
+        LOCAL_STORE.ACCESS_TOKEN,
+        response.data.tokens.access_token
+      );
+      localStorage.setItem(
+        LOCAL_STORE.REFRESH_TOKEN,
+        response.data.tokens.refresh_token
+      );
+
+      return response.data;
+    } catch (error) {
+      return rejectWithValue('Something went wrong');
+    }
+  }
+);
+
+export const initProfile = createAsyncThunk<
+  IProfile['profile'],
+  undefined,
+  IError
+>(
+  EndpointResources.profile.index, // Action name
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const response = await ProfileAPI.profile();
+
       return response.data;
     } catch (error) {
       return rejectWithValue('Something went wrong');
@@ -36,6 +65,11 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+    },
+    reset: (state) => {
+      state.user = null;
+      state.loading = false;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -55,11 +89,26 @@ const authSlice = createSlice({
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'Something went wrong';
+      })
+      //Profile
+      .addCase(initProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(
+        initProfile.fulfilled,
+        (state, action: PayloadAction<IProfile['profile']>) => {
+          state.user = action.payload;
+          state.loading = false;
+        }
+      )
+      .addCase(initProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'Something went wrong';
       });
-    //Profile
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, reset } = authSlice.actions;
 
 export default authSlice.reducer;

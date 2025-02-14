@@ -1,5 +1,6 @@
-import { PanelLayout } from '@/common/components/PanelLayout';
-import withAuth, { CheckType } from '@/common/hoc/withAuth';
+import { PanelLayout } from '@/modules/panel/PanelLayout';
+import withRoleGuard from '@/common/hoc/withRoleGuard';
+import { CheckType } from '@/common/hoc/withRoleGuard';
 import DashboardInfo from '@/modules/panel/DashboardInfo/DashboardInfo';
 import { Typography } from 'antd';
 
@@ -14,4 +15,4 @@ function Dashboard() {
   );
 }
 
-export default withAuth(Dashboard, CheckType.AUTH);
+export default withRoleGuard(Dashboard, CheckType.AUTH);

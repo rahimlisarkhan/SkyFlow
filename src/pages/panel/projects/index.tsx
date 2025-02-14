@@ -1,9 +1,8 @@
-import { PanelLayout } from '@/common/components/PanelLayout';
-import withAuth, { CheckType } from '@/common/hoc/withAuth';
-import withRole from '@/common/hoc/withRole';
+import { PanelLayout } from '@/modules/panel/PanelLayout';
+import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
 import ProjectsTable from '@/modules/panel/ProjectsTable';
-import { ROLE } from '@/types/profile.types';
 import { Typography } from 'antd';
+import { ROLE } from '@/common/constants/role';
 
 const { Title } = Typography;
 
@@ -16,7 +15,7 @@ function Projects() {
   );
 }
 
-export default withRole(
-  withAuth(Projects, CheckType.AUTH), // First checking Auth then role checking
-  [ROLE.PRO, ROLE.ENTERPRISE]
-);
+export default withRoleGuard(Projects, CheckType.AUTH, [
+  ROLE.PRO,
+  ROLE.ENTERPRISE,
+]);

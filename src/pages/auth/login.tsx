@@ -1,86 +1,90 @@
-import { Form, Input, Button, Typography, Card } from 'antd';
-import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { Button, Typography, Card } from 'antd';
 import styles from '@/common/theme/login.module.css';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '@/common/store';
 import { loginUser } from '@/common/store/slices/authSlice';
-import withAuth, { CheckType } from '@/common/hoc/withAuth';
+import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
+import MetaSeo from '@/common/components/MetaSeo';
+import { ILogin } from '@/types/auth.types';
+import { useTranslation } from 'next-i18next';
+import TextInput from '@/common/components/TextInput';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 function Login() {
-  const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  interface LoginFormValues {
-    email: string;
-    password: string;
-  }
+  const { t } = useTranslation();
 
-  const onFinish = (values: LoginFormValues) => {
-    console.log('Login Data:', values);
-    // Simulate login success
+  const validationSchema = Yup.object({
+    username: Yup.string()
+      .min(6, t('Password must be at least 6 characters!'))
+      .max(20, t('Password must be at most 20 characters!'))
+      .required('Please enter your email!'),
+    password: Yup.string()
+      .min(6, t('Password must be at least 6 characters!'))
+      .max(20, t('Password must be at most 20 characters!'))
+      .required('Please enter your password!'),
+  });
 
-    // dispatch(loginUser(values));
-    // router.push('/');
-  };
+  const formik = useFormik<ILogin>({
+    initialValues: { username: '', password: '' },
+    validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      const resultAction = dispatch(loginUser(values));
+
+      if (loginUser.fulfilled.match(resultAction)) {
+        //We have auto redirect in withRoleGuard hoc.if you have a user
+        resetForm();
+      }
+    },
+  });
 
   return (
     <div className={styles.container}>
+      <MetaSeo title="Login | Skyflow" description="Lorem ipsum" />
+
       <Card className={styles.card}>
         <Title level={2} className={styles.title}>
           Login to SkyFlow
         </Title>
 
-        <Form layout="vertical" onFinish={onFinish}>
-          {/* Email Field */}
-          <Form.Item
-            label="Email"
-            name="email"
-            rules={[
-              { required: true, message: 'Please enter your email!' },
-              { type: 'email', message: 'Invalid email format!' },
-            ]}
-          >
-            <Input placeholder="Enter your email" />
-          </Form.Item>
+        {/* Email Field */}
+        <TextInput
+          label="Username"
+          name="username"
+          placeholder="Enter your email"
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.errors.username}
+        />
 
-          {/* Password Field */}
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: 'Please enter your password!' }]}
-          >
-            <Input.Password placeholder="Enter your password" />
-          </Form.Item>
+        {/* Password Field */}
+        <TextInput
+          label="Password"
+          name="password"
+          password
+          placeholder="Enter your password"
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.errors.password}
+        />
 
-          {/* Login Button */}
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className={styles.button}
-              block
-            >
-              Login
-            </Button>
-          </Form.Item>
-        </Form>
-
-        {/* Google Login Button */}
-        <Button type="default" className={styles.googleButton} block>
-          Login with Google
+        {/* Login Button */}
+        <Button
+          type="primary"
+          htmlType="submit"
+          onClick={() => formik.handleSubmit()}
+          block
+        >
+          Login
         </Button>
-
-        {/* Signup Redirect */}
-        <Text>
-          Don&apos;t have an account?{' '}
-          <a onClick={() => router.push('/signup')} className={styles.link}>
-            Sign Up
-          </a>
-        </Text>
       </Card>
     </div>
   );
 }
 
-export default withAuth(Login, CheckType.USER);
+export default withRoleGuard(Login, CheckType.USER);

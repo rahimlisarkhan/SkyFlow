@@ -1,7 +1,7 @@
 import { Card, Col, Row, Statistic } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import useCheckRole from '@/common/hooks/useCheckRole';
-import { ROLE } from '@/types/profile.types';
+import { ROLE } from '@/common/constants/role';
 
 const cardData = [
   { title: 'Total Sales', value: 10000, icon: <ArrowUpOutlined /> },

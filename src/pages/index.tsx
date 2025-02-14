@@ -5,7 +5,8 @@ import styles from '@/common/theme/home.module.css';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import LanguageDropdown from '@/common/components/LangSelect';
 import { useTranslation } from 'next-i18next';
-import withAuth, { CheckType } from '@/common/hoc/withAuth';
+import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
+import MetaSeo from '@/common/components/MetaSeo';
 
 const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
@@ -31,6 +32,7 @@ function Home() {
 
   return (
     <Layout className={styles.layout}>
+      <MetaSeo title="Home | Skyflow" description="Lorem ipsum" />
       {/* Header */}
       <Header className={styles.header}>
         <div className={styles.logo}>SkyFlow</div>
@@ -101,7 +103,7 @@ function Home() {
   );
 }
 
-export default withAuth(Home, CheckType.USER);
+export default withRoleGuard(Home, CheckType.USER);
 
 export async function getServerSideProps({ locale = 'az' }: any) {
   let languages = { ...(await serverSideTranslations(locale, ['common'])) };

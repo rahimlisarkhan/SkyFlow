@@ -13,205 +13,170 @@ import { DEV_LOGGER } from '../utils/dev';
 import { LoggerKeys } from '@/types/dev.types';
 import { ITokenResponse } from '@/types/profile.types';
 import { IResponse } from '@/types/api.types';
+import { LOCAL_STORE } from '../constants/keys';
+import { store } from '../store';
+import { reset } from '../store/slices/authSlice';
 
-interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
-  _retry?: boolean;
-}
+let fetcher: AxiosInstance | null = null;
+const maxRetries = 3;
+let retryCount = 0;
 
-class ApiService {
-  private static instance: ApiService;
-  private fetcher: AxiosInstance;
+//  Get default headers (only runs on the client)
+const getHeaders = (): RawAxiosRequestHeaders => {
+  if (typeof window === 'undefined') return {};
 
-  private maxRetries = 3;
-  private retryCount = 0;
+  const language = localStorage.getItem('lang') || 'en';
+  const token = localStorage.getItem(LOCAL_STORE.ACCESS_TOKEN);
 
-  private constructor() {
-    this.fetcher = axios.create({
-      baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-      timeout: 10000,
-      headers: this.getHeaders(),
-    });
-    this.setupInterceptors();
-    this.initialize();
-  }
+  return {
+    'Accept-Language': language,
+    Authorization: token ? `Bearer ${token}` : '',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Headers': 'Content-Type',
+  };
+};
 
-  public static getInstance(): ApiService {
-    if (!ApiService.instance) {
-      ApiService.instance = new ApiService();
+// Create a singleton Axios instance
+const createFetcher = (): AxiosInstance => {
+  if (fetcher) return fetcher;
+
+  fetcher = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+    timeout: 10000,
+  });
+
+  setupInterceptors(fetcher);
+  updateHeaders(); // Ensure headers are set
+
+  return fetcher;
+};
+
+/**
+ * Update headers dynamically (only on the client)
+ */
+const updateHeaders = (headers: Partial<RawAxiosRequestHeaders> = {}): void => {
+  if (typeof window === 'undefined' || !fetcher) return;
+
+  const newHeaders = { ...getHeaders(), ...headers };
+
+  Object.entries(newHeaders).forEach(([key, value]) => {
+    if (value) {
+      fetcher!.defaults.headers.common[key] = value as AxiosHeaderValue;
     }
-    return ApiService.instance;
-  }
+  });
+};
 
-  private getHeaders(): RawAxiosRequestHeaders {
-    let language;
-    let token;
-    if (typeof window !== 'undefined') {
-      language = localStorage.getItem('lang') || 'en';
-      token = localStorage.getItem('access_token');
-    }
+// Response interceptor to handle token refresh
+const setupInterceptors = (instance: AxiosInstance) => {
+  instance.interceptors.response.use(handleResponse, handleError);
+};
 
-    const header = {
-      'Accept-Language': language,
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    };
+//  Handle successful response
+const handleResponse = (response: AxiosResponse): AxiosResponse => response;
 
-    return header;
-  }
-
-  private setupInterceptors(): void {
-    this.fetcher.interceptors.response.use(
-      this.handleResponse,
-      this.handleError
-    );
-  }
-
-  public updateHeaders(headers: Partial<RawAxiosRequestHeaders> = {}): void {
-    const newHeaders = {
-      ...this.getHeaders(),
-      ...headers,
-    };
-
-    Object.entries(newHeaders).forEach(([key, value]) => {
-      DEV_LOGGER(LoggerKeys.header, `KEY:${key} - VALUE:${value}`);
-      this.fetcher.defaults.headers.common[key] = value as AxiosHeaderValue;
-    });
-  }
-
-  private handleResponse = (response: AxiosResponse): AxiosResponse => {
-    return response;
+// Handle error responses and token refresh
+const handleError = async (error: AxiosError): Promise<AxiosResponse> => {
+  const originalRequest = error.config as InternalAxiosRequestConfig & {
+    _retry?: boolean;
   };
 
-  private handleError = async (error: AxiosError): Promise<AxiosResponse> => {
-    const originalRequest = error.config as ExtendedAxiosRequestConfig;
+  if (!originalRequest) return Promise.reject(error);
 
-    if (!originalRequest) {
-      return Promise.reject(error);
-    }
-
-    if (originalRequest.url?.includes('/auth/login')) {
-      return Promise.reject(error);
-    }
-
-    if (
-      error.response?.status === HttpStatusCode.Unauthorized &&
-      !originalRequest._retry &&
-      this.retryCount < this.maxRetries
-    ) {
-      this.retryCount++;
-
-      originalRequest._retry = true;
-
-      try {
-        const newToken = await this.refreshToken();
-        if (newToken) {
-          originalRequest.headers.Authorization = `Bearer ${newToken}`;
-          return this.fetcher(originalRequest);
-        } else {
-          this.clearSession();
-          return Promise.reject(error);
-        }
-      } catch (refreshError) {
-        this.clearSession();
-        return Promise.reject(refreshError);
-      }
-    } else if (this.retryCount >= this.maxRetries) {
-      this.clearSession();
-      return Promise.reject(new Error('Max retry limit reached'));
-    }
-
+  if (originalRequest.url?.includes('/auth/login')) {
     return Promise.reject(error);
-  };
+  }
 
-  private async refreshToken(): Promise<string | null> {
-    let token;
-    if (typeof window !== 'undefined') {
-      token = localStorage?.getItem('access_token');
-    }
+  if (
+    error.response?.status === HttpStatusCode.Unauthorized &&
+    !originalRequest._retry &&
+    retryCount < maxRetries
+  ) {
+    retryCount++;
 
-    if (!token) {
-      DEV_LOGGER(
-        LoggerKeys.token,
-        'Refresh token not found, session clearing...'
-      );
-      this.clearSession();
-      return null;
-    }
+    originalRequest._retry = true;
 
     try {
-      delete this.fetcher.defaults.headers.common.Authorization;
-      const { data: response }: { data: IResponse<ITokenResponse> } =
-        await this.fetcher.post(API.auth.refresh, {
-          refresh_token: token,
-        });
-
-      if (response.result) {
-        const newAccessToken = response.data.access_token;
-        const newRefreshToken = response.data.refresh_token;
-
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('access_token', newAccessToken);
-          localStorage.setItem('refresh_token', newRefreshToken);
-        }
-
-        this.fetcher.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
-        DEV_LOGGER(LoggerKeys.token, 'Token refreshed successfully');
-        return newAccessToken;
+      const newToken = await refreshToken();
+      if (newToken) {
+        originalRequest.headers.Authorization = `Bearer ${newToken}`;
+        return fetcher!(originalRequest);
       } else {
-        throw new Error('Token refresh failed');
+        clearSession();
+        return Promise.reject(error);
       }
-    } catch (error) {
-      DEV_LOGGER(LoggerKeys.token, 'Token refresh failed, session clearing...');
-      this.clearSession();
-      return null;
+    } catch (refreshError) {
+      clearSession();
+      return Promise.reject(refreshError);
     }
+  } else if (retryCount >= maxRetries) {
+    clearSession();
+    return Promise.reject(new Error('Max retry limit reached'));
   }
 
-  public clearSession = (): void => {
-    DEV_LOGGER(LoggerKeys.token, 'Session cleared');
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-    }
-    delete this.fetcher.defaults.headers.common.Authorization;
-    window.location.href = '/auth/login';
-  };
+  return Promise.reject(error);
+};
 
-  public clearLogout = (): void => {
-    this.fetcher({ url: API.auth.logout, method: 'POST' })
-      .then((res) => {
-        if (res.data.result) {
-          this.clearSession();
-        } else {
-          alert('Session clear failed');
-        }
-      })
-      .catch(() => {
-        DEV_LOGGER(LoggerKeys.token, 'Session clear request failed');
+// Refresh token logic
+const refreshToken = async (): Promise<string | null> => {
+  if (typeof window === 'undefined') return null;
+
+  const refreshToken = localStorage.getItem(LOCAL_STORE.REFRESH_TOKEN);
+  if (!refreshToken) {
+    clearSession();
+    return null;
+  }
+
+  try {
+    delete fetcher!.defaults.headers.common.Authorization;
+    const { data: response }: { data: IResponse<ITokenResponse> } =
+      await fetcher!.post(API.auth.refresh, {
+        refresh_token: refreshToken,
       });
-  };
 
-  private initialize(): void {
-    if (typeof window !== 'undefined') {
-      const accessToken = localStorage.getItem('access_token');
-      if (accessToken) {
-        this.fetcher.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-      }
+    if (response.result) {
+      const newAccessToken = response.data.access_token;
+      const newRefreshToken = response.data.refresh_token;
+
+      localStorage.setItem(LOCAL_STORE.ACCESS_TOKEN, newAccessToken);
+      localStorage.setItem(LOCAL_STORE.REFRESH_TOKEN, newRefreshToken);
+
+      fetcher!.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
+      return newAccessToken;
+    } else {
+      throw new Error('Token refresh failed');
     }
+  } catch (error) {
+    clearSession();
+    return null;
   }
+};
 
-  public getFetcher(): AxiosInstance {
-    return this.fetcher;
-  }
-}
+// Clear session and log out
+const clearSession = (): void => {
+  if (typeof window === 'undefined') return;
 
-const ApiServiceInstance = ApiService.getInstance();
-const Fetcher = ApiServiceInstance.getFetcher();
+  localStorage.removeItem(LOCAL_STORE.ACCESS_TOKEN);
+  localStorage.removeItem(LOCAL_STORE.REFRESH_TOKEN);
+  delete fetcher!.defaults.headers.common.Authorization;
+  store.dispatch(reset());
+  DEV_LOGGER(LoggerKeys.token, 'Session cleared');
+};
 
-export const updateApiHeaders = (
-  headers: Partial<RawAxiosRequestHeaders> = {}
-) => ApiServiceInstance.updateHeaders(headers);
+// Logout function
+const logout = (): void => {
+  fetcher!
+    .post(API.auth.logout)
+    .then((res) => {
+      clearSession();
+    })
+    .catch(() => {
+      DEV_LOGGER(LoggerKeys.token, 'Session clear request failed');
+    });
+};
 
-export const logout = () => ApiServiceInstance.clearLogout();
+// Initialize fetcher
+const Fetcher = createFetcher();
+
+export { updateHeaders, logout };
+
 export default Fetcher;
