@@ -9,7 +9,7 @@ import { IResponse } from '@/types/api.types';
 import { IProfile } from '@/types/profile.types';
 
 export class ProfileAPI {
-  public static async profile(): Promise<IResponse<IProfile>> {
+  public static async profile(): Promise<IResponse<IProfile['profile']>> {
     return await Fetcher(EndpointResources.profile.index, INSTANCE_METHODS.GET)
       .then(responseHandler)
       .catch((error) => {

@@ -1,8 +1,4 @@
-export enum ROLE {
-  FREE = 'FREE',
-  PRO = 'PRO',
-  ENTERPRISE = 'ENTERPRISE',
-}
+import { ROLE } from '@/common/constants/role';
 
 export interface ITokenResponse {
   access_token: string;
@@ -13,8 +9,7 @@ export interface IProfile {
   tokens: ITokenResponse;
   profile: {
     id: number;
-    name: string;
-    surname: string;
+    full_name: string;
     email: string;
     created_at: string;
     license: ROLE;

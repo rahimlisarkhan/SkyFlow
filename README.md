@@ -67,3 +67,15 @@ https://trello.com/b/2wJ1Qahr/skyfollow
 
    npm run dev
    ```
+
+FREE
+username:johndoe_free
+password:John4321%%
+
+PRO
+username:johndoe_pro
+password:John4321%%
+
+ENTERPRICE
+username:johndoe_enter
+password:John4321%%
