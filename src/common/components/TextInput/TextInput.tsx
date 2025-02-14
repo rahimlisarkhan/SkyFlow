@@ -1,6 +1,6 @@
-import React from "react";
-import styles from "./TextInput.module.css";
-import { Input, InputProps } from "antd";
+import React, { memo } from 'react';
+import styles from './TextInput.module.css';
+import { Input, InputProps } from 'antd';
 
 interface TextInputType extends InputProps {
   label?: string;
@@ -8,7 +8,7 @@ interface TextInputType extends InputProps {
   password?: boolean;
 }
 
-export function TextInput({ label, error, password, ...props }: TextInputType) {
+function TextInput({ label, error, password, ...props }: TextInputType) {
   const Component = password ? Input.Password : Input;
 
   return (
@@ -21,3 +21,5 @@ export function TextInput({ label, error, password, ...props }: TextInputType) {
     </div>
   );
 }
+
+export default memo(TextInput);

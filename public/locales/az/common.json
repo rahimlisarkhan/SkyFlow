@@ -1,3 +1,31 @@
 {
-  "title": "SkyFlow'a xoş gəlmisiniz"
+  "home_title": "SkyFlow'a xoş gəlmisiniz",
+
+  "dashboard": "İdarə paneli",
+  "report": "Hesabat",
+  "projects": "Layihələr",
+  "logout": "Çıxış",
+
+  "total_sales": "Ümumi satış",
+  "income": "Gəlir",
+  "total_orders": "Ümumi sifarişlər",
+  "active_users": "Aktiv istifadəçilər",
+  "pending_rders": "Gözləyən sifarişlər",
+  "completed_tasks": "Tamamlanmış tapşırıqlar",
+  "refunds": "Geri ödənişlər",
+  "new_customers": "Yeni müştərilər",
+  "profit": "Qazanc",
+
+  "create": "Yarat",
+  "title": "Başlıq",
+  "desc": "Təsvir",
+  "created": "Yaradıldı",
+
+  "monthly_sales": "Aylıq Satışlar",
+  "sales": "Satışlar",
+  "monthly_revenue": "Aylıq Gəlir",
+  "revenue": "Gəlir",
+
+  "error_sub_title": "OOPS! Daxil olduğunuz səhifə mövcud deyil.",
+  "error_back_title": "Ana səhifəyə qayıt"
 }

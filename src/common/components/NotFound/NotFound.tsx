@@ -1,7 +1,7 @@
-import React from "react";
-import { Result, Button } from "antd";
-import styles from "./error.module.css";
-import { ResultStatusType } from "antd/es/result";
+import React, { memo } from 'react';
+import { Result, Button } from 'antd';
+import styles from './error.module.css';
+import { ResultStatusType } from 'antd/es/result';
 
 interface NotFoundType {
   onBack: () => void;
@@ -11,7 +11,7 @@ interface NotFoundType {
   subTitle: string;
 }
 
-export function NotFound({
+function NotFound({
   status = 404,
   title,
   subTitle,
@@ -25,7 +25,7 @@ export function NotFound({
         title={title}
         subTitle={subTitle}
         extra={
-          <Button variant="solid" color="blue" onClick={onBack}>
+          <Button type="primary" onClick={onBack}>
             {backTitle}
           </Button>
         }
@@ -33,3 +33,5 @@ export function NotFound({
     </div>
   );
 }
+
+export default memo(NotFound);
