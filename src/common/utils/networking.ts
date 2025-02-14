@@ -1,7 +1,7 @@
-import { AxiosError, AxiosResponse, HttpStatusCode } from 'axios';
-import { DEV_LOGGER } from './dev';
-import { notification } from 'antd';
-import { LoggerKeys } from '@/types/dev.types';
+import { AxiosError, AxiosResponse, HttpStatusCode } from "axios";
+import { DEV_LOGGER } from "./dev";
+import { notification } from "antd";
+import { LoggerKeys } from "@/types/dev.types";
 
 interface INetworkError {
   message: string;
@@ -9,11 +9,11 @@ interface INetworkError {
 }
 
 export enum REQUEST_METHODS {
-  POST = 'POST',
-  GET = 'GET',
-  DELETE = 'DELETE',
-  PATCH = 'PATCH',
-  PUT = 'PUT',
+  POST = "POST",
+  GET = "GET",
+  DELETE = "DELETE",
+  PATCH = "PATCH",
+  PUT = "PUT",
 }
 
 export const INSTANCE_METHODS = {
@@ -26,9 +26,9 @@ export const INSTANCE_METHODS = {
 export const responseHandler = (response: AxiosResponse) => {
   DEV_LOGGER(
     (LoggerKeys.request +
-      ' | ' +
+      " | " +
       response.config.method?.toUpperCase()) as LoggerKeys.request,
-    response.config.url
+    response.config.url,
   );
   return response.data;
 };
@@ -42,12 +42,12 @@ export const errorHandler = (e: AxiosError, returnable?: boolean) => {
     body: e.response?.data,
   });
 
-  if ((errorResponse.message || e.code === 'ERR_BAD_REQUEST') && !returnable) {
+  if ((errorResponse.message || e.code === "ERR_BAD_REQUEST") && !returnable) {
     const message = errorResponse?.message;
     DEV_LOGGER(message);
     notification.error({
       message: message,
-      placement: 'topRight',
+      placement: "topRight",
     });
   }
 

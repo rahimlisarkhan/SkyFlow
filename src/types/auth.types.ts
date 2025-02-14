@@ -1,4 +1,4 @@
-import { IResponse } from './api.types';
+import { IResponse } from "./api.types";
 
 export interface ILogin {
   username: string;

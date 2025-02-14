@@ -1,22 +1,22 @@
-import React, { ComponentType, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAppDispatch, useAppSelector } from '../store';
-import { ROUTER } from '../constants/router';
-import Loading from '../components/Loading';
-import { ROLE } from '../constants/role';
-import { initProfile } from '../store/slices/authSlice';
-import { useDebounce } from '../hooks/useDebounce';
-import { LOCAL_STORE } from '../constants/keys';
+import React, { ComponentType, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "../store";
+import { ROUTER } from "../constants/router";
+import Loading from "../components/Loading";
+import { ROLE } from "../constants/role";
+import { initProfile } from "../store/slices/authSlice";
+import { useDebounce } from "../hooks/useDebounce";
+import { LOCAL_STORE } from "../constants/keys";
 
 export enum CheckType {
-  AUTH = 'AUTH',
-  USER = 'USER',
+  AUTH = "AUTH",
+  USER = "USER",
 }
 
 const withRoleGuard = <P extends object>(
   WrappedComponent: ComponentType<P>,
   checkType: CheckType = CheckType.AUTH,
-  allowedRoles?: ROLE[]
+  allowedRoles?: ROLE[],
 ) => {
   const AuthHOC = (props: P) => {
     const { user } = useAppSelector((state) => state.auth);

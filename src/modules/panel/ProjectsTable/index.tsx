@@ -1,5 +1,5 @@
-import { Table, Skeleton, Empty } from 'antd';
-import { useState, useEffect } from 'react';
+import { Table, Skeleton, Empty } from "antd";
+import { useState, useEffect } from "react";
 // import { useRouter } from 'next/router';
 
 const ProjectsTable = () => {
@@ -12,22 +12,22 @@ const ProjectsTable = () => {
   // Mock data
   const mockData = [
     {
-      id: '1',
-      title: 'Project Alpha',
-      desc: 'Description for Project Alpha.',
-      created: '2024-02-01',
+      id: "1",
+      title: "Project Alpha",
+      desc: "Description for Project Alpha.",
+      created: "2024-02-01",
     },
     {
-      id: '2',
-      title: 'Project Beta',
-      desc: 'Description for Project Beta.',
-      created: '2024-02-10',
+      id: "2",
+      title: "Project Beta",
+      desc: "Description for Project Beta.",
+      created: "2024-02-10",
     },
     {
-      id: '3',
-      title: 'Project Gamma',
-      desc: 'Description for Project Gamma.',
-      created: '2024-01-15',
+      id: "3",
+      title: "Project Gamma",
+      desc: "Description for Project Gamma.",
+      created: "2024-01-15",
     },
   ];
 
@@ -41,24 +41,24 @@ const ProjectsTable = () => {
 
   const columns = [
     {
-      title: 'Project ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: "Project ID",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
+      title: "Title",
+      dataIndex: "title",
+      key: "title",
     },
     {
-      title: 'Description',
-      dataIndex: 'desc',
-      key: 'desc',
+      title: "Description",
+      dataIndex: "desc",
+      key: "desc",
     },
     {
-      title: 'Created',
-      dataIndex: 'created',
-      key: 'created',
+      title: "Created",
+      dataIndex: "created",
+      key: "created",
     },
   ];
 

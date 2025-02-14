@@ -1,12 +1,12 @@
-import { Layout, Menu, Button, Typography, Flex } from 'antd';
-import { useRouter } from 'next/router';
-import { useRef } from 'react';
-import styles from '@/common/theme/home.module.css';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import LanguageDropdown from '@/common/components/LangSelect';
-import { useTranslation } from 'next-i18next';
-import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
-import MetaSeo from '@/common/components/MetaSeo';
+import { Layout, Menu, Button, Typography, Flex } from "antd";
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import styles from "@/common/theme/home.module.css";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import LanguageDropdown from "@/common/components/LangSelect";
+import { useTranslation } from "next-i18next";
+import withRoleGuard, { CheckType } from "@/common/hoc/withRoleGuard";
+import MetaSeo from "@/common/components/MetaSeo";
 
 const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
@@ -14,7 +14,7 @@ const { Title, Paragraph } = Typography;
 function Home() {
   const router = useRouter();
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   // Refs for sections
   const aboutRef = useRef(null);
@@ -27,7 +27,7 @@ function Home() {
   }
 
   const scrollToSection = (ref: SectionRef) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -43,7 +43,7 @@ function Home() {
           <Menu.Item key="2" onClick={() => scrollToSection(productRef)}>
             Product
           </Menu.Item>
-          <Menu.Item key="3" onClick={() => router.push('/pricing')}>
+          <Menu.Item key="3" onClick={() => router.push("/pricing")}>
             Pricing
           </Menu.Item>
           <Menu.Item key="4" onClick={() => scrollToSection(contactRef)}>
@@ -52,7 +52,7 @@ function Home() {
         </Menu>
 
         <Flex gap={12}>
-          <Button type="primary" onClick={() => router.push('/auth/login')}>
+          <Button type="primary" onClick={() => router.push("/auth/login")}>
             Login
           </Button>
           <LanguageDropdown />
@@ -61,7 +61,7 @@ function Home() {
 
       {/* Hero Section */}
       <Content className={styles.content}>
-        <Title className={styles.title}>{t('title')}</Title>
+        <Title className={styles.title}>{t("title")}</Title>
         <Paragraph className={styles.subtitle}>
           The next-generation cloud solution for seamless data management.
         </Paragraph>
@@ -105,8 +105,8 @@ function Home() {
 
 export default withRoleGuard(Home, CheckType.USER);
 
-export async function getServerSideProps({ locale = 'az' }: any) {
-  let languages = { ...(await serverSideTranslations(locale, ['common'])) };
+export async function getServerSideProps({ locale = "az" }: any) {
+  let languages = { ...(await serverSideTranslations(locale, ["common"])) };
 
   return {
     props: {

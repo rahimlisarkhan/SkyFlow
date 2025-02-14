@@ -1,5 +1,5 @@
-import { ROLE } from '@/types/profile.types';
-import { useAppSelector } from '../store';
+import { ROLE } from "../constants/role";
+import { useAppSelector } from "../store";
 
 const useCheckRole = (allowedRoles: ROLE[]) => {
   const userLicense = useAppSelector((state) => state.auth.user?.license);
