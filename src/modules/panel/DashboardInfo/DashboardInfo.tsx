@@ -2,6 +2,7 @@ import { Card, Col, Row, Statistic } from 'antd';
 import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import useCheckRole from '@/common/hooks/useCheckRole';
 import { ROLE } from '@/common/constants/role';
+import ErrorBoundary from '@/common/components/ErrorBoundary';
 
 const cardData = [
   { title: 'Total Sales', value: 10000 },
@@ -19,45 +20,47 @@ const DashboardInfo = () => {
 
   return (
     <Row gutter={[16, 16]}>
-      {cardData.map((card, index) => {
-        const content = (
-          <Col span={8} key={index}>
-            <Card
-              title={card.title}
-              extra={
-                card.value > 1000 ? (
-                  <ArrowUpOutlined
-                    style={{
-                      color: 'green',
-                    }}
-                  />
-                ) : (
-                  <ArrowDownOutlined
-                    style={{
-                      color: 'red',
-                    }}
-                  />
-                )
-              }
-              style={{
-                height: '150px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-              }}
-            >
-              <Statistic value={card.value + ' $'} />
-            </Card>
-          </Col>
-        );
+      <ErrorBoundary>
+        {cardData.map((card, index) => {
+          const content = (
+            <Col span={8} key={index}>
+              <Card
+                title={card.title}
+                extra={
+                  card.value > 1000 ? (
+                    <ArrowUpOutlined
+                      style={{
+                        color: 'green',
+                      }}
+                    />
+                  ) : (
+                    <ArrowDownOutlined
+                      style={{
+                        color: 'red',
+                      }}
+                    />
+                  )
+                }
+                style={{
+                  height: '150px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
+                <Statistic value={card.value + ' $'} />
+              </Card>
+            </Col>
+          );
 
-        if (index % 2 == 0) {
-          // "even" data only show ENTERPRISE
-          return checkRole(content);
-        }
+          if (index % 2 == 0) {
+            // "even" data only show ENTERPRISE
+            return checkRole(content);
+          }
 
-        return content;
-      })}
+          return content;
+        })}
+      </ErrorBoundary>
     </Row>
   );
 };
