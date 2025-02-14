@@ -61,7 +61,7 @@ function Home() {
 
       {/* Hero Section */}
       <Content className={styles.content}>
-        <Title className={styles.title}>{t('title')}</Title>
+        <Title className={styles.title}>{t('home_title')}</Title>
         <Paragraph className={styles.subtitle}>
           The next-generation cloud solution for seamless data management.
         </Paragraph>
@@ -97,7 +97,7 @@ function Home() {
 
       {/* Footer */}
       <Footer className={styles.footer}>
-        © 2024 SkyFlow. All Rights Reserved.
+        © 2025 SkyFlow. All Rights Reserved.
       </Footer>
     </Layout>
   );

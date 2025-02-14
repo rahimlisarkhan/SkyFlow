@@ -4,6 +4,7 @@ import useCheckRole from '@/common/hooks/useCheckRole';
 import { useAppDispatch, useAppSelector } from '@/common/store';
 import { initProjects } from '@/common/store/slices/panelSlice';
 import { Table, Skeleton, Empty, Button } from 'antd';
+import { useTranslation } from 'next-i18next';
 import { useCallback, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
@@ -11,6 +12,7 @@ const ProjectsTable = () => {
   const { loading, projects } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 
@@ -21,29 +23,29 @@ const ProjectsTable = () => {
   const columns = useMemo(() => {
     const headers = [
       {
-        title: 'Project ID',
+        title: '#',
         dataIndex: 'id',
         key: 'id',
       },
       {
-        title: 'Title',
+        title: t('title'),
         dataIndex: 'title',
         key: 'title',
       },
       {
-        title: 'Description',
+        title: t('desc'),
         dataIndex: 'desc',
         key: 'desc',
       },
       {
-        title: 'Created',
+        title: t('created'),
         dataIndex: 'created',
         key: 'created',
       },
     ];
 
     return headers;
-  }, []);
+  }, [t]);
 
   const handleCreate = useCallback(() => {
     toast.info('Coming soon');
@@ -59,7 +61,7 @@ const ProjectsTable = () => {
     <ErrorBoundary>
       {checkRole(
         <Button style={{ marginBottom: 14 }} onClick={handleCreate}>
-          Create +
+          {t('create')} +
         </Button>
       )}
       <Table

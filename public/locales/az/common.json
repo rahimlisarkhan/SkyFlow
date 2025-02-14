@@ -1,5 +1,5 @@
 {
-  "title": "SkyFlow'a xoş gəlmisiniz",
+  "home_title": "SkyFlow'a xoş gəlmisiniz",
 
   "dashboard": "İdarə paneli",
   "report": "Hesabat",
@@ -14,5 +14,10 @@
   "completed_tasks": "Tamamlanmış tapşırıqlar",
   "refunds": "Geri ödənişlər",
   "new_customers": "Yeni müştərilər",
-  "profit": "Qazanc"
+  "profit": "Qazanc",
+
+  "create": "Yarat",
+  "title": "Başlıq",
+  "desc": "Təsvir",
+  "created": "Yaradıldı"
 }
