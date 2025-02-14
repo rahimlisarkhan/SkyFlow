@@ -48,10 +48,10 @@ echo "🚀 Starting Docker Build & Deploy"
 
 if [ "$ENV" == "dev" ]; then
     echo "🛠 Building & Starting Development Container..."
-    docker compose -p rn-web-dev up -d --build
+    docker compose -p skyflow-app-dev up -d --build
 elif [ "$ENV" == "prod" ]; then
     echo "🚀 Building & Starting Production Container..."
-    docker compose -p rn-web-prod up -d --build
+    docker compose -p skyflow-app-prod up -d --build
 fi
 
 echo "✅ Done!"
