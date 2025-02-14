@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest",
+    "format": "prettier --write '**/*.ts' '**/*.tsx'",
     "lint": "next lint"
   },
   "dependencies": {
@@ -23,6 +24,7 @@
     "next-i18next": "^10.5.0",
     "next-plugin-antd-less": "^1.8.0",
     "next-seo": "^6.6.0",
+    "prettier": "^3.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",

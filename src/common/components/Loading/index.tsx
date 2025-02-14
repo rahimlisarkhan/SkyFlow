@@ -1,6 +1,6 @@
-import React from 'react';
-import { Spin, Space } from 'antd';
-import styles from './Loading.module.css'; // Import the CSS module
+import React from "react";
+import { Spin, Space } from "antd";
+import styles from "./Loading.module.css"; // Import the CSS module
 
 const Loading = () => {
   return (

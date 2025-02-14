@@ -1,26 +1,26 @@
-import { Card, Button, Typography, Row, Col } from 'antd';
-import styles from '@/common/theme/pricing.module.css';
+import { Card, Button, Typography, Row, Col } from "antd";
+import styles from "@/common/theme/pricing.module.css";
 
 const { Title, Text } = Typography;
 
 const plans = [
   {
-    name: 'Free',
-    price: '$0/month',
-    features: ['Basic Features', 'Community Support', 'Limited Usage'],
-    buttonText: 'Get Started',
+    name: "Free",
+    price: "$0/month",
+    features: ["Basic Features", "Community Support", "Limited Usage"],
+    buttonText: "Get Started",
   },
   {
-    name: 'Pro',
-    price: '$19/month',
-    features: ['Advanced Features', 'Priority Support', 'Increased Limits'],
-    buttonText: 'Upgrade to Pro',
+    name: "Pro",
+    price: "$19/month",
+    features: ["Advanced Features", "Priority Support", "Increased Limits"],
+    buttonText: "Upgrade to Pro",
   },
   {
-    name: 'Enterprise',
-    price: 'Custom Pricing',
-    features: ['Full Access', '24/7 Support', 'Unlimited Usage'],
-    buttonText: 'Contact Sales',
+    name: "Enterprise",
+    price: "Custom Pricing",
+    features: ["Full Access", "24/7 Support", "Unlimited Usage"],
+    buttonText: "Contact Sales",
   },
 ];
 

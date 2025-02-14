@@ -1,6 +1,6 @@
-import React from 'react';
-import styles from './TextInput.module.css';
-import { Input, InputProps } from 'antd';
+import React from "react";
+import styles from "./TextInput.module.css";
+import { Input, InputProps } from "antd";
 
 interface TextInputType extends InputProps {
   label?: string;

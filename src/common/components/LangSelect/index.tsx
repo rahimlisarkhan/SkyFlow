@@ -1,11 +1,11 @@
-import React from 'react';
-import { Select } from 'antd';
-import { useChangeLang } from '@/common/hooks/useChangeLang';
+import React from "react";
+import { Select } from "antd";
+import { useChangeLang } from "@/common/hooks/useChangeLang";
 
 const { Option } = Select;
 
 const LanguageDropdown = () => {
-  const { locale = 'az', onLocaleChange } = useChangeLang();
+  const { locale = "az", onLocaleChange } = useChangeLang();
 
   const handleLocaleChange = (value: string) => {
     onLocaleChange(value);

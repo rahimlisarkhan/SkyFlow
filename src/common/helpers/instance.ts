@@ -6,16 +6,16 @@ import axios, {
   HttpStatusCode,
   InternalAxiosRequestConfig,
   RawAxiosRequestHeaders,
-} from 'axios';
+} from "axios";
 
-import { EndpointResources as API } from '@/services/EndpointResources.g';
-import { DEV_LOGGER } from '../utils/dev';
-import { LoggerKeys } from '@/types/dev.types';
-import { ITokenResponse } from '@/types/profile.types';
-import { IResponse } from '@/types/api.types';
-import { LOCAL_STORE } from '../constants/keys';
-import { store } from '../store';
-import { reset } from '../store/slices/authSlice';
+import { EndpointResources as API } from "@/services/EndpointResources.g";
+import { DEV_LOGGER } from "../utils/dev";
+import { LoggerKeys } from "@/types/dev.types";
+import { ITokenResponse } from "@/types/profile.types";
+import { IResponse } from "@/types/api.types";
+import { LOCAL_STORE } from "../constants/keys";
+import { store } from "../store";
+import { reset } from "../store/slices/authSlice";
 
 let fetcher: AxiosInstance | null = null;
 const maxRetries = 3;
@@ -23,16 +23,16 @@ let retryCount = 0;
 
 //  Get default headers (only runs on the client)
 const getHeaders = (): RawAxiosRequestHeaders => {
-  if (typeof window === 'undefined') return {};
+  if (typeof window === "undefined") return {};
 
-  const language = localStorage.getItem('lang') || 'en';
+  const language = localStorage.getItem("lang") || "en";
   const token = localStorage.getItem(LOCAL_STORE.ACCESS_TOKEN);
 
   return {
-    'Accept-Language': language,
-    Authorization: token ? `Bearer ${token}` : '',
-    'Content-Type': 'application/json',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    "Accept-Language": language,
+    Authorization: token ? `Bearer ${token}` : "",
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Headers": "Content-Type",
   };
 };
 
@@ -55,7 +55,7 @@ const createFetcher = (): AxiosInstance => {
  * Update headers dynamically (only on the client)
  */
 const updateHeaders = (headers: Partial<RawAxiosRequestHeaders> = {}): void => {
-  if (typeof window === 'undefined' || !fetcher) return;
+  if (typeof window === "undefined" || !fetcher) return;
 
   const newHeaders = { ...getHeaders(), ...headers };
 
@@ -82,7 +82,7 @@ const handleError = async (error: AxiosError): Promise<AxiosResponse> => {
 
   if (!originalRequest) return Promise.reject(error);
 
-  if (originalRequest.url?.includes('/auth/login')) {
+  if (originalRequest.url?.includes("/auth/login")) {
     return Promise.reject(error);
   }
 
@@ -110,7 +110,7 @@ const handleError = async (error: AxiosError): Promise<AxiosResponse> => {
     }
   } else if (retryCount >= maxRetries) {
     clearSession();
-    return Promise.reject(new Error('Max retry limit reached'));
+    return Promise.reject(new Error("Max retry limit reached"));
   }
 
   return Promise.reject(error);
@@ -118,7 +118,7 @@ const handleError = async (error: AxiosError): Promise<AxiosResponse> => {
 
 // Refresh token logic
 const refreshToken = async (): Promise<string | null> => {
-  if (typeof window === 'undefined') return null;
+  if (typeof window === "undefined") return null;
 
   const refreshToken = localStorage.getItem(LOCAL_STORE.REFRESH_TOKEN);
   if (!refreshToken) {
@@ -143,7 +143,7 @@ const refreshToken = async (): Promise<string | null> => {
       fetcher!.defaults.headers.common.Authorization = `Bearer ${newAccessToken}`;
       return newAccessToken;
     } else {
-      throw new Error('Token refresh failed');
+      throw new Error("Token refresh failed");
     }
   } catch (error) {
     clearSession();
@@ -153,13 +153,13 @@ const refreshToken = async (): Promise<string | null> => {
 
 // Clear session and log out
 const clearSession = (): void => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === "undefined") return;
 
   localStorage.removeItem(LOCAL_STORE.ACCESS_TOKEN);
   localStorage.removeItem(LOCAL_STORE.REFRESH_TOKEN);
   delete fetcher!.defaults.headers.common.Authorization;
   store.dispatch(reset());
-  DEV_LOGGER(LoggerKeys.token, 'Session cleared');
+  DEV_LOGGER(LoggerKeys.token, "Session cleared");
 };
 
 // Logout function
@@ -170,7 +170,7 @@ const logout = (): void => {
       clearSession();
     })
     .catch(() => {
-      DEV_LOGGER(LoggerKeys.token, 'Session clear request failed');
+      DEV_LOGGER(LoggerKeys.token, "Session clear request failed");
     });
 };
 
