@@ -80,7 +80,7 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
       },
     ];
     return data;
-  }, [user]); // For un-necessary rendering
+  }, [user, checkRole]); // For un-necessary rendering
 
   return (
     <Layout className={styles.layout}>
