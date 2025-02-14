@@ -14,19 +14,19 @@ const ProjectsTable = () => {
       id: '1',
       title: 'Project Alpha',
       desc: 'Description for Project Alpha.',
-      created: '2024-02-01',
+      created: '2025-02-01',
     },
     {
       id: '2',
       title: 'Project Beta',
       desc: 'Description for Project Beta.',
-      created: '2024-02-10',
+      created: '2025-02-10',
     },
     {
       id: '3',
       title: 'Project Gamma',
       desc: 'Description for Project Gamma.',
-      created: '2024-01-15',
+      created: '2025-01-15',
     },
   ];
 

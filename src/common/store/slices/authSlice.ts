@@ -13,9 +13,7 @@ interface AuthState {
   error: string | null;
 }
 
-//First type: return data type
-//Second type: payload type
-//Third type: return error type
+//Thunks
 export const loginUser = createAsyncThunk<IProfile, ILogin, IError>(
   EndpointResources.auth.login, // Action name
   async (credentials, { rejectWithValue }) => {
