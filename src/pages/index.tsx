@@ -7,6 +7,7 @@ import { useTranslation } from 'next-i18next';
 import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
 import MetaSeo from '@/common/components/MetaSeo';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetServerSideProps } from 'next';
 
 const { Header, Content, Footer } = Layout;
 const { Title, Paragraph } = Typography;
@@ -105,10 +106,10 @@ function Home() {
 
 export default withRoleGuard(Home, CheckType.USER);
 
-export async function getStaticProps({ locale }: { locale: string }) {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-}
+};

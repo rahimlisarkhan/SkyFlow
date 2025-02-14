@@ -5,6 +5,7 @@ import DashboardInfo from '@/modules/panel/containers/DashboardInfo/DashboardInf
 import { Typography } from 'antd';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { GetServerSideProps } from 'next';
 
 const { Title } = Typography;
 
@@ -20,10 +21,10 @@ function Dashboard() {
 
 export default withRoleGuard(Dashboard, CheckType.USER);
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-}
+};

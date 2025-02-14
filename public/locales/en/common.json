@@ -19,5 +19,13 @@
   "create": "Create",
   "title": "Title",
   "desc": "Description",
-  "created": "Created"
+  "created": "Created",
+
+  "monthly_sales": "Monthly Sales",
+  "sales": "Sales",
+  "monthly_revenue": "Monthly Revenue",
+  "revenue": "Revenue",
+
+  "error_sub_title": "Sorry, the page you visited does not exist.",
+  "error_back_title": "Back to home"
 }

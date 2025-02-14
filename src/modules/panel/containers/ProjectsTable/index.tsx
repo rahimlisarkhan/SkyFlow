@@ -17,6 +17,8 @@ const ProjectsTable = () => {
   const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 
   useEffect(() => {
+    if (projects) return; // Already has data.
+
     dispatch(initProjects());
   }, []);
 

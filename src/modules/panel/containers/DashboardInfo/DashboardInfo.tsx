@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/common/store';
 import { initDashboard } from '@/common/store/slices/panelSlice';
 import Skeletons from '@/common/components/Skeleton';
 import { useTranslation } from 'next-i18next';
+import ErrorBoundary from '@/common/components/ErrorBoundary';
 
 const DashboardInfo = () => {
   const checkRole = useCheckRole();
@@ -17,8 +18,10 @@ const DashboardInfo = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (dashboard) return; // Already has data.
+
     dispatch(initDashboard());
-  }, []);
+  }, [dashboard]);
 
   const statistics = useMemo(() => {
     if (!dashboard?.length) return;
@@ -49,7 +52,11 @@ const DashboardInfo = () => {
     });
   }, [dashboard, checkRole]);
 
-  return <Row gutter={[16, 16]}>{loading ? <Skeletons /> : statistics}</Row>;
+  return (
+    <Row gutter={[16, 16]}>
+      <ErrorBoundary>{loading ? <Skeletons /> : statistics}</ErrorBoundary>
+    </Row>
+  );
 };
 
 export default DashboardInfo;

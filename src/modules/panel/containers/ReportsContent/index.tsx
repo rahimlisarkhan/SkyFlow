@@ -6,16 +6,20 @@ import useCheckRole from '@/common/hooks/useCheckRole';
 import { useAppDispatch, useAppSelector } from '@/common/store';
 import { initReport } from '@/common/store/slices/panelSlice';
 import { Col, Row } from 'antd';
+import { useTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 
 const ReportsContent = () => {
   const { loading, report } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
 
   const checkRole = useCheckRole([ROLE.ENTERPRISE]);
 
   useEffect(() => {
+    if (report) return; // Already has data.
+
     dispatch(initReport());
   }, []);
 
@@ -32,8 +36,8 @@ const ReportsContent = () => {
       {checkRole(
         <Col span={24}>
           <BarChart
-            title="Monthly Sales"
-            xTitle="Sales"
+            title={t('monthly_sales')}
+            xTitle={t('sales')}
             label={report?.sales.label}
             data={report?.sales.data}
           />
@@ -42,8 +46,8 @@ const ReportsContent = () => {
 
       <Col span={24}>
         <LineChart
-          title="Monthly Revenue"
-          xTitle="Revenue"
+          title={t('monthly_revenue')}
+          xTitle={t('revenue')}
           label={report?.revenue.label}
           data={report?.revenue.data}
         />

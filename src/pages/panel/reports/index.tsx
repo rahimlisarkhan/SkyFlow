@@ -5,6 +5,7 @@ import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
 import { ROLE } from '@/common/constants/role';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import { GetServerSideProps } from 'next';
 
 const { Title } = Typography;
 
@@ -24,10 +25,10 @@ export default withRoleGuard(Reports, CheckType.AUTH, [
   ROLE.ENTERPRISE,
 ]);
 
-export async function getServerSideProps({ locale }: { locale: string }) {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale as string, ['common'])),
     },
   };
-}
+};

@@ -2,6 +2,7 @@ import { Card } from 'antd';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import React, { memo } from 'react';
+import ErrorBoundary from '../ErrorBoundary';
 
 interface IChartBar {
   data?: number[];
@@ -50,9 +51,11 @@ function BarChart({
   };
 
   return (
-    <Card title={title}>
-      <HighchartsReact highcharts={Highcharts} options={barOptions} />
-    </Card>
+    <ErrorBoundary>
+      <Card title={title}>
+        <HighchartsReact highcharts={Highcharts} options={barOptions} />
+      </Card>
+    </ErrorBoundary>
   );
 }
 

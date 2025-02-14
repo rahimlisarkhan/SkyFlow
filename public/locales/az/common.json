@@ -19,5 +19,13 @@
   "create": "Yarat",
   "title": "Başlıq",
   "desc": "Təsvir",
-  "created": "Yaradıldı"
+  "created": "Yaradıldı",
+
+  "monthly_sales": "Aylıq Satışlar",
+  "sales": "Satışlar",
+  "monthly_revenue": "Aylıq Gəlir",
+  "revenue": "Gəlir",
+
+  "error_sub_title": "OOPS! Daxil olduğunuz səhifə mövcud deyil.",
+  "error_back_title": "Ana səhifəyə qayıt"
 }
