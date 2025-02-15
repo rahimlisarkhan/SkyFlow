@@ -4,6 +4,8 @@ import type { AppProps } from 'next/app';
 import nextI18NextConfig from '../../next-i18next.config';
 
 import 'antd/dist/reset.css';
+import '../common/theme/globals.css';
+
 import theme from '@/common/theme/themeConfig';
 import { store } from '@/common/store';
 import { Provider } from 'react-redux';

@@ -14,7 +14,7 @@ const ReportsContent = () => {
   const { loading, report } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   const checkRole = useCheckRole([ROLE.ENTERPRISE]);
 

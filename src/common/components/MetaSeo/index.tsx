@@ -1,5 +1,5 @@
 // components/SEO.js
-import { NextSeo } from "next-seo";
+import { NextSeo } from 'next-seo';
 
 type Props = {
   title: string;
@@ -8,7 +8,12 @@ type Props = {
   image?: string;
 };
 
-export default function MetaSeo({ title, description, url, image }: Props) {
+export default function MetaSeo({
+  title = 'Skyflow',
+  description,
+  url,
+  image,
+}: Props) {
   return (
     <NextSeo
       title={title}
@@ -18,29 +23,28 @@ export default function MetaSeo({ title, description, url, image }: Props) {
       openGraph={{
         url,
         title,
-        type: "website",
+        type: 'website',
         description,
         images: [
           {
-            url: image || "",
+            url: image || '',
             width: 1200, // Adjust dimensions to match Facebook recommendations
             height: 630,
             alt: title,
-            type: "image/png",
+            type: 'image/png',
           },
         ],
         siteName: title,
       }}
       twitter={{
-        handle: "@yourhandle", // Replace with your Twitter handle if applicable
-        site: "@yourhandle",
-        cardType: "summary_large_image",
+        handle: '@yourhandle', // Replace with your Twitter handle if applicable
+        site: '@yourhandle',
+        cardType: 'summary_large_image',
       }}
       additionalMetaTags={[
         {
-          name: "keywords",
-          content:
-            "rezervasiya, rezervasiya sistemi, sistem, booking, reservation, system, 7/24 rezervasiya,kalendar",
+          name: 'keywords',
+          content: 'saas, user tools dashboard',
         },
       ]}
     />

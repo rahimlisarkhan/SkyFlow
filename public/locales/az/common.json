@@ -1,5 +1,7 @@
 {
-  "home_title": "SkyFlow'a xoş gəlmisiniz",
+  "home_title": "SkyFlow-a Xoş Gəlmisiniz",
+  "home_desc": "Məlumatların problemsiz idarə edilməsi üçün növbəti nəsil bulud həlli.",
+  "home_btn": "Başla",
 
   "dashboard": "İdarə paneli",
   "report": "Hesabat",
@@ -27,5 +29,21 @@
   "revenue": "Gəlir",
 
   "error_sub_title": "OOPS! Daxil olduğunuz səhifə mövcud deyil.",
-  "error_back_title": "Ana səhifəyə qayıt"
+  "error_back_title": "Ana səhifəyə qayıt",
+
+  "about": "Haqqımızda",
+  "about_desc": "SkyFlow, bizneslərin məlumatlarını təhlükəsiz və səmərəli idarə etməsinə kömək edən bulud əsaslı platformadır.",
+
+  "product": "Məhsullar",
+  "product_desc": "Bizim məhsul real vaxtda məlumat sinxronizasiyası, analitika və avtomatlaşdırma təklif edərək iş axışınızı sadələşdirir.",
+
+  "price": "Paketlər",
+
+  "contact": "Əlaqə",
+  "contact_email": "E-poçt",
+  "contact_phone": "Telefon",
+
+  "footer_title": "© 2025 SkyFlow. Bütün hüquqlar qorunur.",
+
+  "login": "Daxil ol"
 }

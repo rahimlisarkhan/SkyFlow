@@ -13,7 +13,7 @@ const ProjectsTable = () => {
   const { loading, projects } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 

@@ -5,6 +5,8 @@
   "logout": "Logout",
 
   "home_title": "Welcome to SkyFlow",
+  "home_desc": "The next-generation cloud solution for seamless data management.",
+  "home_btn": "Get Started",
 
   "total_sales": "Total Sales",
   "income": "Income",
@@ -27,5 +29,21 @@
   "revenue": "Revenue",
 
   "error_sub_title": "Sorry, the page you visited does not exist.",
-  "error_back_title": "Back to home"
+  "error_back_title": "Back to home",
+
+  "about": "About us",
+  "about_desc": "SkyFlow is a cloud-based platform designed to help businesses manage their data securely and efficiently.",
+
+  "product": "Products",
+  "product_desc": "Our product offers real-time data synchronization, analytics, and automation to streamline your workflow.",
+
+  "price": "Price",
+
+  "contact": "Contact",
+  "contact_email": "Email",
+  "contact_phone": "Phone",
+
+  "footer_title": "© 2025 SkyFlow. All Rights Reserved.",
+
+  "login": "Login"
 }

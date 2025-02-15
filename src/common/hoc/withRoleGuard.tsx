@@ -35,7 +35,7 @@ const withRoleGuard = <P extends object>(
     }
 
     function handleLoginRedirect() {
-      router.replace(ROUTER.LOGIN);
+      router.replace(ROUTER.HOME);
       debounce(() => {
         setLoading(false);
       });

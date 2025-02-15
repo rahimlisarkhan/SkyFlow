@@ -15,7 +15,7 @@ const { Title } = Typography;
 function Login() {
   const dispatch = useAppDispatch();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   const validationSchema = Yup.object({
     username: Yup.string()

@@ -10,7 +10,7 @@ import { GetServerSideProps } from 'next';
 const { Title } = Typography;
 
 function Projects() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   return (
     <PanelLayout>

@@ -28,7 +28,7 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
   const [collapsed, setCollapsed] = useState(false);
   const router = useRouter();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   const { user } = useAppSelector((state) => state.auth);
 
