@@ -1,7 +1,7 @@
-import React, { memo } from 'react';
-import { Result, Button } from 'antd';
-import styles from './error.module.css';
-import { ResultStatusType } from 'antd/es/result';
+import React, { memo } from "react";
+import { Result, Button } from "antd";
+import styles from "./error.module.css";
+import { ResultStatusType } from "antd/es/result";
 
 interface NotFoundType {
   onBack: () => void;

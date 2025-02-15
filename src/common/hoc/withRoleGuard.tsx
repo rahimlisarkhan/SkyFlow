@@ -1,16 +1,16 @@
-import React, { ComponentType, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAppDispatch, useAppSelector } from '../store';
-import { ROUTER } from '../constants/router';
-import Loading from '../components/Loading';
-import { ROLE } from '../constants/role';
-import { initProfile, selUser } from '../store/slices/authSlice';
-import { LOCAL_STORE } from '../constants/keys';
-import { useDebounce } from '../hooks/useDebounce';
+import React, { ComponentType, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "../store";
+import { ROUTER } from "../constants/router";
+import Loading from "../components/Loading";
+import { ROLE } from "../constants/role";
+import { initProfile, selUser } from "../store/slices/authSlice";
+import { LOCAL_STORE } from "../constants/keys";
+import { useDebounce } from "../hooks/useDebounce";
 
 const withRoleGuard = <P extends object>(
   WrappedComponent: ComponentType<P>,
-  allowedRoles?: ROLE[]
+  allowedRoles?: ROLE[],
 ) => {
   const AuthHOC = (props: P) => {
     const user = useAppSelector(selUser);

@@ -1,7 +1,7 @@
-import { LOCAL_STORE } from '@/common/constants/keys';
-import { useAppDispatch, useAppSelector } from '@/common/store';
-import { initProfile, selUser } from '@/common/store/slices/authSlice';
-import { useEffect } from 'react';
+import { LOCAL_STORE } from "@/common/constants/keys";
+import { useAppDispatch, useAppSelector } from "@/common/store";
+import { initProfile, selUser } from "@/common/store/slices/authSlice";
+import { useEffect } from "react";
 
 export const useInit = () => {
   const user = useAppSelector(selUser);

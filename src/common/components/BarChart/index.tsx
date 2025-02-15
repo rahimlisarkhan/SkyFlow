@@ -1,8 +1,8 @@
-import { Card } from 'antd';
-import HighchartsReact from 'highcharts-react-official';
-import Highcharts from 'highcharts';
-import React, { memo } from 'react';
-import ErrorBoundary from '../ErrorBoundary';
+import { Card } from "antd";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts from "highcharts";
+import React, { memo } from "react";
+import ErrorBoundary from "../ErrorBoundary";
 
 interface IChartBar {
   data?: number[];
@@ -11,7 +11,7 @@ interface IChartBar {
   xTitle: string;
 }
 
-const initialLabel: string[] = Array.from({ length: 6 }, () => 'label');
+const initialLabel: string[] = Array.from({ length: 6 }, () => "label");
 const initialData: number[] = Array.from({ length: 6 }, () => 0);
 
 function BarChart({
@@ -25,7 +25,7 @@ function BarChart({
 
   const barOptions = {
     chart: {
-      type: 'bar',
+      type: "bar",
     },
     title: {
       text: title,
@@ -42,7 +42,7 @@ function BarChart({
       {
         name: xTitle,
         data: safeData,
-        color: '#4bc0c0',
+        color: "#4bc0c0",
       },
     ],
     credits: {

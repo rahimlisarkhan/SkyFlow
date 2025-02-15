@@ -1,8 +1,8 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component, ReactNode } from "react";
 
-import { withTranslation } from 'react-i18next';
+import { withTranslation } from "react-i18next";
 
-import { formatDateTime } from '@/common/utils/date';
+import { formatDateTime } from "@/common/utils/date";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -24,44 +24,44 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   async componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.log('Error caught by boundary:', error, errorInfo);
+    console.log("Error caught by boundary:", error, errorInfo);
 
-    if (process.env.NODE_ENV == 'development') return;
+    if (process.env.NODE_ENV == "development") return;
 
     try {
       console.log(process.env.NODE_ENV);
 
       const webhookUrl =
-        'https://hooks.slack.com/services/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';
+        "https://hooks.slack.com/services/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";
 
       const message = {
         blocks: [
           {
-            type: 'header',
+            type: "header",
             text: {
-              type: 'plain_text',
-              text: '🚨 Front End Error Alert | app.rezneed.com',
+              type: "plain_text",
+              text: "🚨 Front End Error Alert | app.rezneed.com",
               emoji: true,
             },
           },
 
           {
-            type: 'section',
+            type: "section",
             fields: [
               {
-                type: 'mrkdwn',
+                type: "mrkdwn",
                 text: `*Error message:*\n${error}`,
               },
               {
-                type: 'mrkdwn',
+                type: "mrkdwn",
                 text: `*Time:*\n${formatDateTime(new Date().toISOString())}`,
               },
             ],
           },
           {
-            type: 'section',
+            type: "section",
             text: {
-              type: 'mrkdwn',
+              type: "mrkdwn",
               text: `*Error Info:*\n\`\`\`${JSON.stringify(errorInfo, null, 2)}\`\`\``,
             },
           },
@@ -69,12 +69,12 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
       };
 
       await fetch(webhookUrl, {
-        method: 'POST',
-        referrerPolicy: 'no-referrer',
+        method: "POST",
+        referrerPolicy: "no-referrer",
         body: JSON.stringify(message),
       });
     } catch (slackError) {
-      console.error('Failed to send error to Slack:', slackError);
+      console.error("Failed to send error to Slack:", slackError);
     }
   }
 

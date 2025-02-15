@@ -1,6 +1,6 @@
-import { Col, Skeleton } from 'antd';
-import { SkeletonButtonProps } from 'antd/es/skeleton/Button';
-import React from 'react';
+import { Col, Skeleton } from "antd";
+import { SkeletonButtonProps } from "antd/es/skeleton/Button";
+import React from "react";
 
 interface ISkeleton extends SkeletonButtonProps {
   width?: number | string;

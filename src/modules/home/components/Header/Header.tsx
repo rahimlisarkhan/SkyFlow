@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react';
-import LanguageDropdown from '@/common/components/LangSelect';
-import { Layout, Menu, Button, Flex, Avatar, Spin } from 'antd';
+import React, { useMemo } from "react";
+import LanguageDropdown from "@/common/components/LangSelect";
+import { Layout, Menu, Button, Flex, Avatar, Spin } from "antd";
 
-import styles from './Header.module.css';
-import { useRouter } from 'next/router';
-import { ROUTER } from '@/common/constants/router';
-import { useTranslation } from 'next-i18next';
-import { useAppSelector } from '@/common/store';
+import styles from "./Header.module.css";
+import { useRouter } from "next/router";
+import { ROUTER } from "@/common/constants/router";
+import { useTranslation } from "next-i18next";
+import { useAppSelector } from "@/common/store";
 
 const { Header } = Layout;
 
@@ -18,29 +18,29 @@ export function HomeHeader({ error }: IHeader) {
   const router = useRouter();
   const { user, loading } = useAppSelector((state) => state.auth);
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const menuItems = useMemo(() => {
     return [
       {
         key: 1,
-        label: t('about'),
-        onClick: () => router.replace(ROUTER.HOME + '#about'),
+        label: t("about"),
+        onClick: () => router.replace(ROUTER.HOME + "#about"),
       },
       {
         key: 2,
-        label: t('product'),
-        onClick: () => router.replace(ROUTER.HOME + '#product'),
+        label: t("product"),
+        onClick: () => router.replace(ROUTER.HOME + "#product"),
       },
       {
         key: ROUTER.PRICING,
-        label: t('price'),
+        label: t("price"),
         onClick: () => router.push(ROUTER.PRICING),
       },
       {
         key: 4,
-        label: t('contact'),
-        onClick: () => router.replace(ROUTER.HOME + '#contact'),
+        label: t("contact"),
+        onClick: () => router.replace(ROUTER.HOME + "#contact"),
       },
     ];
   }, []);
@@ -56,7 +56,7 @@ export function HomeHeader({ error }: IHeader) {
     </Avatar>
   ) : (
     <Button type="primary" onClick={() => router.push(ROUTER.LOGIN)}>
-      {t('login')}
+      {t("login")}
     </Button>
   );
 

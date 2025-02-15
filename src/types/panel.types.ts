@@ -1,4 +1,4 @@
-import { ROLE } from '@/common/constants/role';
+import { ROLE } from "@/common/constants/role";
 
 export interface IDashboard {
   key: string;

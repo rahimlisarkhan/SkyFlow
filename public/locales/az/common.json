@@ -68,5 +68,22 @@
   "full_support": "24/7 Dəstək",
   "unlimited_usage": "Məhdudiyyətsiz İstifadə",
 
-  "current_use": "Cari İstifadə"
+  "current_use": "Cari İstifadə",
+
+  "form": {
+    "username": "İstifadəçi adı",
+    "username_placeholder": "E-poçtunuzu daxil edin",
+    "password": "Şifrə",
+    "password_placeholder": "Şifrənizi daxil edin"
+  },
+  "validation": {
+    "username_min": "İstifadəçi adı ən azı 6 simvol olmalıdır!",
+    "username_max": "İstifadəçi adı ən çox 20 simvol olmalıdır!",
+    "username_required": "Zəhmət olmasa istifadəçi adınızı daxil edin!",
+    "password_min": "Şifrə ən azı 6 simvol olmalıdır!",
+    "password_max": "Şifrə ən çox 20 simvol olmalıdır!",
+    "password_required": "Zəhmət olmasa şifrənizi daxil edin!"
+  },
+
+  "soon": "Tezliklə gəlir"
 }
