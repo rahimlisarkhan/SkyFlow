@@ -45,5 +45,28 @@
 
   "footer_title": "© 2025 SkyFlow. All Rights Reserved.",
 
-  "login": "Login"
+  "login": "Login",
+
+  "plan_title": "Choose Your Plan",
+  "plan_free": "Free",
+  "month": "month",
+  "plan_btn_free": "Get Started",
+  "basic_features": "Basic Features",
+  "community_support": "Community Support",
+  "limited_usage": "Limited Usage",
+
+  "plan_pro": "Pro",
+  "plan_btn_pro": "Upgrade to Pro",
+  "advanced_features": "Advanced Features",
+  "priority_support": "Priority Support",
+  "increased_limits": "Increased Limits",
+
+  "plan_enter": "Enterprise",
+  "price_enter": "Custom Pricing",
+  "plan_btn_enter": "Contact Sales",
+  "full_access": "Full Access",
+  "full_support": "24/7 Support",
+  "unlimited_usage": "Unlimited Usage",
+
+  "current_use": "Current use"
 }

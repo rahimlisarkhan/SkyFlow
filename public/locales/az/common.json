@@ -45,5 +45,28 @@
 
   "footer_title": "© 2025 SkyFlow. Bütün hüquqlar qorunur.",
 
-  "login": "Daxil ol"
+  "login": "Daxil ol",
+
+  "plan_title": "Planınızı Seçin",
+  "plan_free": "Pulsuz",
+  "month": "ay",
+  "plan_btn_free": "Başla",
+  "basic_features": "Əsas Xüsusiyyətlər",
+  "community_support": "İcma Dəstəyi",
+  "limited_usage": "Məhdud İstifadə",
+
+  "plan_pro": "Pro",
+  "plan_btn_pro": "Pro-ya Yüksəl",
+  "advanced_features": "Təkmilləşdirilmiş Xüsusiyyətlər",
+  "priority_support": "Prioritet Dəstək",
+  "increased_limits": "Artırılmış Limitlər",
+
+  "plan_enter": "Enterprise",
+  "price_enter": "Xüsusi Qiymətləndirmə",
+  "plan_btn_enter": "Satışla Əlaqə",
+  "full_access": "Tam Əlçatanlıq",
+  "full_support": "24/7 Dəstək",
+  "unlimited_usage": "Məhdudiyyətsiz İstifadə",
+
+  "current_use": "Cari İstifadə"
 }

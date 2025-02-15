@@ -3,6 +3,8 @@ import { ConfigProvider } from 'antd';
 import type { AppProps } from 'next/app';
 import nextI18NextConfig from '../../next-i18next.config';
 
+import NextNProgress from 'nextjs-progressbar';
+
 import 'antd/dist/reset.css';
 import '../common/theme/globals.css';
 
@@ -18,6 +20,7 @@ const App = ({ Component, pageProps }: AppProps) => (
     <Provider store={store}>
       <Component {...pageProps} />
       <ToastContainer />
+      <NextNProgress color="#52c418" />
     </Provider>
   </ConfigProvider>
 );
