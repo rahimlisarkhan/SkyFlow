@@ -91,7 +91,7 @@ npm run dev
     );
   }
 
-  export default ProjectsTable
+  export default ProjectsTable;
   ```
 
 - **Multi-Language Support (i18n)**
@@ -139,7 +139,7 @@ npm run dev
 
 ![Alt Text](./public/images/screen2.png)
 
-## Task Board
+## Time
 
 -Time management - https://codetime.dev -> connect vscode extention
 -Project time - daily 9.3 hours total - 21 hours

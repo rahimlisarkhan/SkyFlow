@@ -43,10 +43,10 @@ describe('withRoleGuard HOC', () => {
 
   test('renders the component if user is authorized', async () => {
     // Mocking the user state to represent an authorized user with the correct role
-    (useAppSelector as jest.Mock).mockReturnValue({ license: ROLE.ADMIN });
+    (useAppSelector as jest.Mock).mockReturnValue({ license: ROLE.ENTERPRISE });
     localStorage.setItem(LOCAL_STORE.ACCESS_TOKEN, 'valid_token');
 
-    const WrappedComponent = withRoleGuard(MockComponent, [ROLE.ADMIN]);
+    const WrappedComponent = withRoleGuard(MockComponent, [ROLE.ENTERPRISE]);
     render(<WrappedComponent />);
 
     await waitFor(() => {
