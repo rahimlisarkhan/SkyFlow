@@ -68,5 +68,20 @@
   "full_support": "24/7 Support",
   "unlimited_usage": "Unlimited Usage",
 
-  "current_use": "Current use"
+  "current_use": "Current use",
+
+  "form": {
+    "username": "Username",
+    "username_placeholder": "Enter your email",
+    "password": "Password",
+    "password_placeholder": "Enter your password"
+  },
+  "validation": {
+    "username_min": "Username must be at least 6 characters!",
+    "username_max": "Username must be at most 20 characters!",
+    "username_required": "Please enter your username!",
+    "password_min": "Password must be at least 6 characters!",
+    "password_max": "Password must be at most 20 characters!",
+    "password_required": "Please enter your password!"
+  }
 }
