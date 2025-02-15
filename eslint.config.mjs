@@ -11,7 +11,7 @@ module.exports = {
     jsxPragma: 'React',
     createDefaultProgram: true,
   },
-  ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', '*.cjs'],
+  ignorePatterns: ['dist', '.eslintrc.cjs', 'next.config.ts', '*.cjs'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
