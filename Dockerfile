@@ -1,14 +1,13 @@
-# Use an official Node.js runtime as the base image
-FROM node:18-alpine
+# Use Node.js 20 as the base image
+FROM node:20-alpine
 
 # Upgrade npm before installing dependencies
 RUN npm install -g npm@11.1.0
 
-
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy package.json to the working directory
 COPY package.json ./
 
 # Install dependencies
