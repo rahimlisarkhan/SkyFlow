@@ -66,21 +66,19 @@ export function HomeHeader({ error }: IHeader) {
         SkyFlow
       </div>
       {!error && (
-        <>
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            className={styles.menu}
-            items={menuItems}
-            defaultSelectedKeys={[router.asPath]}
-          />
-
-          <Flex gap={24}>
-            <LanguageDropdown />
-            {userContent}
-          </Flex>
-        </>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          className={styles.menu}
+          items={menuItems}
+          defaultSelectedKeys={[router.asPath]}
+        />
       )}
+
+      <Flex gap={24}>
+        <LanguageDropdown />
+        {!error && userContent}
+      </Flex>
     </Header>
   );
 }

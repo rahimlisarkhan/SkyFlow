@@ -3,7 +3,7 @@ import { NextSeo } from 'next-seo';
 
 type Props = {
   title: string;
-  description: string;
+  description?: string;
   url?: string;
   image?: string;
 };

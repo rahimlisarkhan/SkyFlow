@@ -6,6 +6,7 @@ import { ROLE } from '@/common/constants/role';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { GetServerSideProps } from 'next';
+import MetaSeo from '@/common/components/MetaSeo';
 
 const { Title } = Typography;
 
@@ -14,6 +15,7 @@ function Reports() {
 
   return (
     <PanelLayout>
+      <MetaSeo title={t('report')} />
       <Title level={2}>{t('report')}</Title>
       <ReportsContent />
     </PanelLayout>
