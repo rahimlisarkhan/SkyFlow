@@ -13,15 +13,17 @@ const DashboardInfo = () => {
 
   const { t } = useTranslation('common');
 
+  const { user } = useAppSelector((state) => state.auth);
   const { loading, dashboard } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (dashboard) return; // Already has data.
+    if (dashboard) return; // First checking -  Already has data.
 
-    dispatch(initDashboard());
-  }, [dashboard]);
+    //Second checking - for correct steps if you have user data then request dash. for checking role-base steps
+    user && dispatch(initDashboard());
+  }, [dashboard, user]);
 
   const statistics = useMemo(() => {
     if (!dashboard?.length) return;

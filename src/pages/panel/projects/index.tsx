@@ -1,5 +1,5 @@
 import { PanelLayout } from '@/modules/panel/components/PanelLayout';
-import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
+import withRoleGuard from '@/common/hoc/withRoleGuard';
 import ProjectsTable from '@/modules/panel/containers/ProjectsTable';
 import { Typography } from 'antd';
 import { ROLE } from '@/common/constants/role';
@@ -20,10 +20,7 @@ function Projects() {
   );
 }
 
-export default withRoleGuard(Projects, CheckType.AUTH, [
-  ROLE.PRO,
-  ROLE.ENTERPRISE,
-]);
+export default withRoleGuard(Projects, [ROLE.PRO, ROLE.ENTERPRISE]);
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {

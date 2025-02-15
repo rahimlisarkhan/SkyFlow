@@ -9,13 +9,13 @@ import { store } from '@/common/store';
 import { Provider } from 'react-redux';
 import { appWithTranslation } from 'next-i18next';
 
-// import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 const App = ({ Component, pageProps }: AppProps) => (
   <ConfigProvider theme={theme}>
     <Provider store={store}>
       <Component {...pageProps} />
-      {/* <ToastContainer /> */}
+      <ToastContainer />
     </Provider>
   </ConfigProvider>
 );

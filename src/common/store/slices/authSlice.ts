@@ -1,4 +1,5 @@
 import { LOCAL_STORE } from '@/common/constants/keys';
+import { updateHeaders } from '@/common/helpers/instance';
 import { AuthAPI } from '@/services/api/auth.api';
 import { ProfileAPI } from '@/services/api/profile.api';
 import { EndpointResources } from '@/services/EndpointResources.g';
@@ -20,14 +21,15 @@ export const loginUser = createAsyncThunk<IProfile, ILogin, IError>(
     try {
       const response = await AuthAPI.login(credentials);
 
-      localStorage.setItem(
-        LOCAL_STORE.ACCESS_TOKEN,
-        response.data.tokens.access_token
-      );
+      const token = response.data.tokens.access_token;
+
+      localStorage.setItem(LOCAL_STORE.ACCESS_TOKEN, token);
       localStorage.setItem(
         LOCAL_STORE.REFRESH_TOKEN,
         response.data.tokens.refresh_token
       );
+
+      updateHeaders({ Authorization: `Bearer ${token}` });
 
       return response.data;
     } catch (error) {

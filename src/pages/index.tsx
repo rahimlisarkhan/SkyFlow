@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import styles from '@/common/theme/home.module.css';
 import LanguageDropdown from '@/common/components/LangSelect';
 import { useTranslation } from 'next-i18next';
-import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
+import withRoleGuard from '@/common/hoc/withRoleGuard';
 import MetaSeo from '@/common/components/MetaSeo';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSideProps } from 'next';
@@ -104,7 +104,7 @@ function Home() {
   );
 }
 
-export default withRoleGuard(Home, CheckType.USER);
+export default withRoleGuard(Home);
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {

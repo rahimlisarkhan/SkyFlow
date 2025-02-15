@@ -1,6 +1,5 @@
 import { PanelLayout } from '@/modules/panel/components/PanelLayout';
 import withRoleGuard from '@/common/hoc/withRoleGuard';
-import { CheckType } from '@/common/hoc/withRoleGuard';
 import DashboardInfo from '@/modules/panel/containers/DashboardInfo/DashboardInfo';
 import { Typography } from 'antd';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -19,7 +18,7 @@ function Dashboard() {
   );
 }
 
-export default withRoleGuard(Dashboard, CheckType.USER);
+export default withRoleGuard(Dashboard);
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {

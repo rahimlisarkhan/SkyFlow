@@ -4,12 +4,13 @@ import Skeletons from '@/common/components/Skeleton';
 import { ROLE } from '@/common/constants/role';
 import useCheckRole from '@/common/hooks/useCheckRole';
 import { useAppDispatch, useAppSelector } from '@/common/store';
-import { initReport } from '@/common/store/slices/panelSlice';
+import { initProjects } from '@/common/store/slices/panelSlice';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 
 const ReportsContent = () => {
+  const { user } = useAppSelector((state) => state.auth);
   const { loading, report } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
@@ -18,10 +19,11 @@ const ReportsContent = () => {
   const checkRole = useCheckRole([ROLE.ENTERPRISE]);
 
   useEffect(() => {
-    if (report) return; // Already has data.
+    if (report) return; // First checking -  Already has data.
 
-    dispatch(initReport());
-  }, []);
+    //Second checking - for correct steps if you have user data then request dash. for checking role-base steps
+    user && dispatch(initProjects());
+  }, [report, user]);
 
   if (loading) {
     return (
