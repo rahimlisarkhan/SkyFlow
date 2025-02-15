@@ -4,61 +4,72 @@ import { useAppDispatch, useAppSelector } from '../store';
 import { ROUTER } from '../constants/router';
 import Loading from '../components/Loading';
 import { ROLE } from '../constants/role';
-import { initProfile } from '../store/slices/authSlice';
+import { initProfile, selUser } from '../store/slices/authSlice';
 import { LOCAL_STORE } from '../constants/keys';
-
-export enum CheckType {
-  AUTH = 'AUTH',
-  USER = 'USER',
-}
+import { useDebounce } from '../hooks/useDebounce';
 
 const withRoleGuard = <P extends object>(
   WrappedComponent: ComponentType<P>,
-  checkType: CheckType = CheckType.AUTH,
   allowedRoles?: ROLE[]
 ) => {
   const AuthHOC = (props: P) => {
-    const { user } = useAppSelector((state) => state.auth);
+    const user = useAppSelector(selUser);
     const router = useRouter();
     const dispatch = useAppDispatch();
 
     const [loading, setLoading] = useState(true);
+    const debounce = useDebounce(250);
+
+    function handleUserRedirect() {
+      if (!user) return;
+      const isAuthorized = allowedRoles?.includes(user.license); // both checking role and also, has user?
+
+      if (!isAuthorized) {
+        router.replace(ROUTER.DASHBOARD);
+      }
+
+      debounce(() => {
+        setLoading(false);
+      });
+    }
+
+    function handleLoginRedirect() {
+      router.replace(ROUTER.LOGIN);
+      debounce(() => {
+        setLoading(false);
+      });
+    }
 
     useEffect(() => {
       const token = localStorage.getItem(LOCAL_STORE.ACCESS_TOKEN);
 
-      if (!user && token) {
-        dispatch(initProfile());
-        setLoading(true);
+      if (user) {
+        handleUserRedirect();
         return;
       }
 
-      setLoading(false);
-
-      if (checkType === CheckType.AUTH && !user) {
-        router.replace(ROUTER.LOGIN);
+      if (!token) {
+        handleLoginRedirect();
         return;
       }
 
-      if (checkType === CheckType.USER && user) {
-        router.replace(ROUTER.DASHBOARD);
-        return;
-      }
-
-      if (checkType === CheckType.USER && allowedRoles && user) {
-        const isAuthorized = allowedRoles.includes(user.license);
-        if (!isAuthorized) {
-          router.replace(ROUTER.LOGIN);
+      async function init() {
+        const result = await dispatch(initProfile());
+        if (initProfile.fulfilled.match(result)) {
+          handleUserRedirect();
+        } else {
+          handleLoginRedirect();
         }
       }
+
+      init();
     }, [user]);
 
-    return (
-      <>
-        {loading && <Loading />}
-        <WrappedComponent {...props} />
-      </>
-    );
+    if (loading) {
+      return <Loading />;
+    }
+
+    return <WrappedComponent {...props} />;
   };
 
   return AuthHOC;

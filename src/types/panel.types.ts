@@ -23,3 +23,9 @@ export interface IProject {
   desc: string;
   created: string;
 }
+
+export interface InformationType {
+  products: { id: number; imageUrl: string }[];
+
+  info: { phone: string; address: string };
+}

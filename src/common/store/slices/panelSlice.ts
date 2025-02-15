@@ -3,6 +3,7 @@ import { EndpointResources } from '@/services/EndpointResources.g';
 import { IError } from '@/types/api.types';
 import { IDashboard, IProject, IReport } from '@/types/panel.types';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '..';
 
 interface PanelState {
   dashboard: IDashboard[] | null;
@@ -126,3 +127,7 @@ const panelSlice = createSlice({
 export const { reset } = panelSlice.actions;
 
 export default panelSlice.reducer;
+
+export const selDashboard = (state: RootState) => state.panel.dashboard;
+export const selReport = (state: RootState) => state.panel.report;
+export const selProject = (state: RootState) => state.panel.projects;

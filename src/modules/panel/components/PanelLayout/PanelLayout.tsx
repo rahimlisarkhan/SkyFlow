@@ -17,6 +17,7 @@ import { ROUTER } from '@/common/constants/router';
 import { ItemType, MenuItemType } from 'antd/es/menu/interface';
 import LanguageDropdown from '@/common/components/LangSelect';
 import { useTranslation } from 'next-i18next';
+import { selUser } from '@/common/store/slices/authSlice';
 
 const { Sider, Content } = Layout;
 
@@ -28,9 +29,9 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
   const [collapsed, setCollapsed] = useState(false);
   const router = useRouter();
 
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useAppSelector(selUser);
 
   const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 
@@ -91,7 +92,9 @@ export const PanelLayout = ({ children }: PropsWithChildren) => {
           onCollapse={(value) => setCollapsed(value)}
           className={styles.sider}
         >
-          <div className={styles.logo}>SkyFlow</div>
+          <div className={styles.logo} onClick={() => router.push(ROUTER.HOME)}>
+            SkyFlow
+          </div>
           <Menu
             theme="dark"
             mode="inline"

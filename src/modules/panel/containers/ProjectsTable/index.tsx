@@ -2,6 +2,7 @@ import ErrorBoundary from '@/common/components/ErrorBoundary';
 import { ROLE } from '@/common/constants/role';
 import useCheckRole from '@/common/hooks/useCheckRole';
 import { useAppDispatch, useAppSelector } from '@/common/store';
+import { selUser } from '@/common/store/slices/authSlice';
 import { initProjects } from '@/common/store/slices/panelSlice';
 import { Table, Skeleton, Empty, Button } from 'antd';
 import { useTranslation } from 'next-i18next';
@@ -9,18 +10,20 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 const ProjectsTable = () => {
+  const user = useAppSelector(selUser);
   const { loading, projects } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 
   useEffect(() => {
-    if (projects) return; // Already has data.
+    if (projects) return; // First checking -  Already has data. | fetch network checking...
 
-    dispatch(initProjects());
-  }, []);
+    //Second checking - for correct steps if you have user data then request dash. for checking role-base steps
+    user && dispatch(initProjects());
+  }, [projects, user]);
 
   const columns = useMemo(() => {
     const headers = [

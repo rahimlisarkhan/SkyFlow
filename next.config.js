@@ -2,6 +2,18 @@ const { i18n } = require('./next-i18next.config');
 
 module.exports = {
   reactStrictMode: false,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cloudfront.net',
+      },
+      {
+        protocol: 'https',
+        hostname: 'd15shllkswkct0.cloudfront.net',
+      },
+    ],
+  },
   i18n,
   transpilePackages: [
     // antd & deps

@@ -1,8 +1,10 @@
 import { ROLE } from '../constants/role';
 import { useAppSelector } from '../store';
+import { selUser } from '../store/slices/authSlice';
 
 const useCheckRole = (globalRoles?: ROLE[]) => {
-  const userLicense = useAppSelector((state) => state.auth.user?.license);
+  const user = useAppSelector(selUser);
+  const userLicense = user?.license;
 
   return <T>(item: T, parRoles?: ROLE[]): T | null => {
     return userLicense && (globalRoles ?? parRoles)?.includes(userLicense)

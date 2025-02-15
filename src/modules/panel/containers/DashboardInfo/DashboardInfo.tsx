@@ -7,6 +7,7 @@ import { initDashboard } from '@/common/store/slices/panelSlice';
 import Skeletons from '@/common/components/Skeleton';
 import { useTranslation } from 'next-i18next';
 import ErrorBoundary from '@/common/components/ErrorBoundary';
+import { selUser } from '@/common/store/slices/authSlice';
 
 const DashboardInfo = () => {
   const checkRole = useCheckRole();
@@ -14,14 +15,16 @@ const DashboardInfo = () => {
   const { t } = useTranslation('common');
 
   const { loading, dashboard } = useAppSelector((state) => state.panel);
+  const user = useAppSelector(selUser);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (dashboard) return; // Already has data.
+    if (dashboard) return; // First checking -  Already has data. | fetch network checking...
 
-    dispatch(initDashboard());
-  }, [dashboard]);
+    //Second checking - for correct steps if you have user data then request dash. for checking role-base steps
+    user && dispatch(initDashboard());
+  }, [dashboard, user]);
 
   const statistics = useMemo(() => {
     if (!dashboard?.length) return;

@@ -1,29 +1,28 @@
 import { PanelLayout } from '@/modules/panel/components/PanelLayout';
 import ReportsContent from '@/modules/panel/containers/ReportsContent';
 import { Typography } from 'antd';
-import withRoleGuard, { CheckType } from '@/common/hoc/withRoleGuard';
+import withRoleGuard from '@/common/hoc/withRoleGuard';
 import { ROLE } from '@/common/constants/role';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { GetServerSideProps } from 'next';
+import MetaSeo from '@/common/components/MetaSeo';
 
 const { Title } = Typography;
 
 function Reports() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('common');
 
   return (
     <PanelLayout>
+      <MetaSeo title={t('report')} />
       <Title level={2}>{t('report')}</Title>
       <ReportsContent />
     </PanelLayout>
   );
 }
 
-export default withRoleGuard(Reports, CheckType.AUTH, [
-  ROLE.PRO,
-  ROLE.ENTERPRISE,
-]);
+export default withRoleGuard(Reports, [ROLE.PRO, ROLE.ENTERPRISE]);
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
