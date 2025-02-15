@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from 'react';
-import styles from './PageLayout.module.css';
-import { Layout } from 'antd';
-import MetaSeo from '@/common/components/MetaSeo';
-import Header from '../Header';
-import { useTranslation } from 'next-i18next';
+import React, { PropsWithChildren } from "react";
+import styles from "./PageLayout.module.css";
+import { Layout } from "antd";
+import MetaSeo from "@/common/components/MetaSeo";
+import Header from "../Header";
+import { useTranslation } from "next-i18next";
 
 interface ILayout extends PropsWithChildren {
   metaTitle?: string;
@@ -16,8 +16,8 @@ interface ILayout extends PropsWithChildren {
 const { Footer } = Layout;
 
 export function PageLayout({
-  metaTitle = 'Skyflow',
-  metaDesc = '',
+  metaTitle = "Skyflow",
+  metaDesc = "",
   header,
   children,
   footer,
@@ -30,7 +30,7 @@ export function PageLayout({
       <MetaSeo title={metaTitle} description={metaDesc} />
       {header && <Header error={error} />}
       {children}
-      {footer && <Footer className={styles.footer}>{t('footer_title')}</Footer>}
+      {footer && <Footer className={styles.footer}>{t("footer_title")}</Footer>}
     </Layout>
   );
 }

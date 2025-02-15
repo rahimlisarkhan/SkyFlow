@@ -1,11 +1,11 @@
-import { Card, Button, Typography, Row, Col } from 'antd';
-import styles from './Price.module.css';
-import { ROLE } from '@/common/constants/role';
-import { useTranslation } from 'next-i18next';
-import { useAppSelector } from '@/common/store';
-import { selUser } from '@/common/store/slices/authSlice';
-import { clsnm } from '@/common/utils/clsnm';
-import { useMemo } from 'react';
+import { Card, Button, Typography, Row, Col } from "antd";
+import styles from "./Price.module.css";
+import { ROLE } from "@/common/constants/role";
+import { useTranslation } from "next-i18next";
+import { useAppSelector } from "@/common/store";
+import { selUser } from "@/common/store/slices/authSlice";
+import { clsnm } from "@/common/utils/clsnm";
+import { useMemo } from "react";
 
 const { Title, Text } = Typography;
 
@@ -16,34 +16,34 @@ export function PricingContent() {
   const plans = useMemo(
     () => [
       {
-        name: t('plan_free'),
-        price: '$0/' + t('month'),
+        name: t("plan_free"),
+        price: "$0/" + t("month"),
         features: [
-          t('basic_features'),
-          t('community_support', t('limited_usage')),
+          t("basic_features"),
+          t("community_support", t("limited_usage")),
         ],
-        buttonText: t('plan_btn_free'),
+        buttonText: t("plan_btn_free"),
         type: ROLE.FREE,
       },
       {
-        name: t('plan_pro'),
-        price: '$19/' + t('month'),
+        name: t("plan_pro"),
+        price: "$19/" + t("month"),
         features: [
-          t('advanced_features'),
-          t('priority_support', t('increased_limits')),
+          t("advanced_features"),
+          t("priority_support", t("increased_limits")),
         ],
-        buttonText: t('plan_btn_pro'),
+        buttonText: t("plan_btn_pro"),
         type: ROLE.PRO,
       },
       {
-        name: t('plan_enter'),
-        price: t('price_enter'),
-        features: [t('full_access'), t('full_support', t('unlimited_usage'))],
-        buttonText: t('plan_btn_enter'),
+        name: t("plan_enter"),
+        price: t("price_enter"),
+        features: [t("full_access"), t("full_support", t("unlimited_usage"))],
+        buttonText: t("plan_btn_enter"),
         type: ROLE.ENTERPRISE,
       },
     ],
-    []
+    [],
   ); // pre rendering without
 
   return (
@@ -60,7 +60,7 @@ export function PricingContent() {
               <Card
                 className={clsnm(
                   styles.card,
-                  activePlan ? styles.card_active : ''
+                  activePlan ? styles.card_active : "",
                 )}
               >
                 <Title level={3}>{plan.name}</Title>
@@ -73,10 +73,10 @@ export function PricingContent() {
                 <Button
                   size="large"
                   variant="filled"
-                  color={activePlan ? 'gold' : 'default'}
+                  color={activePlan ? "gold" : "default"}
                   block
                 >
-                  {activePlan ? t('current_use') : plan.buttonText}
+                  {activePlan ? t("current_use") : plan.buttonText}
                 </Button>
               </Card>
             </Col>

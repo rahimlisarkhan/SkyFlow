@@ -1,16 +1,16 @@
-import { LOCAL_STORE } from '@/common/constants/keys';
-import { updateHeaders } from '@/common/helpers/instance';
-import { AuthAPI } from '@/services/api/auth.api';
-import { ProfileAPI } from '@/services/api/profile.api';
-import { EndpointResources } from '@/services/EndpointResources.g';
-import { IError } from '@/types/api.types';
-import { ILogin } from '@/types/auth.types';
-import { IProfile } from '@/types/profile.types';
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '..';
+import { LOCAL_STORE } from "@/common/constants/keys";
+import { updateHeaders } from "@/common/helpers/instance";
+import { AuthAPI } from "@/services/api/auth.api";
+import { ProfileAPI } from "@/services/api/profile.api";
+import { EndpointResources } from "@/services/EndpointResources.g";
+import { IError } from "@/types/api.types";
+import { ILogin } from "@/types/auth.types";
+import { IProfile } from "@/types/profile.types";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "..";
 
 interface AuthState {
-  user: IProfile['profile'] | null;
+  user: IProfile["profile"] | null;
   loading: boolean;
   error: string | null;
 }
@@ -27,20 +27,20 @@ export const loginUser = createAsyncThunk<IProfile, ILogin, IError>(
       localStorage.setItem(LOCAL_STORE.ACCESS_TOKEN, token);
       localStorage.setItem(
         LOCAL_STORE.REFRESH_TOKEN,
-        response.data.tokens.refresh_token
+        response.data.tokens.refresh_token,
       );
 
       updateHeaders({ Authorization: `Bearer ${token}` });
 
       return response.data;
     } catch (error) {
-      return rejectWithValue('Something went wrong');
+      return rejectWithValue("Something went wrong");
     }
-  }
+  },
 );
 
 export const initProfile = createAsyncThunk<
-  IProfile['profile'],
+  IProfile["profile"],
   undefined,
   IError
 >(
@@ -51,13 +51,13 @@ export const initProfile = createAsyncThunk<
 
       return response.data;
     } catch (error) {
-      return rejectWithValue('Something went wrong');
+      return rejectWithValue("Something went wrong");
     }
-  }
+  },
 );
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     user: null,
     loading: false,
@@ -85,11 +85,11 @@ const authSlice = createSlice({
         (state, action: PayloadAction<IProfile>) => {
           state.loading = false;
           state.user = action.payload.profile;
-        }
+        },
       )
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Something went wrong';
+        state.error = action.payload || "Something went wrong";
       })
       //Profile
       .addCase(initProfile.pending, (state) => {
@@ -98,14 +98,14 @@ const authSlice = createSlice({
       })
       .addCase(
         initProfile.fulfilled,
-        (state, action: PayloadAction<IProfile['profile']>) => {
+        (state, action: PayloadAction<IProfile["profile"]>) => {
           state.user = action.payload;
           state.loading = false;
-        }
+        },
       )
       .addCase(initProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Something went wrong';
+        state.error = action.payload || "Something went wrong";
       });
   },
 });

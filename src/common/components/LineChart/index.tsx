@@ -1,8 +1,8 @@
-import { Card } from 'antd';
-import HighchartsReact from 'highcharts-react-official';
-import Highcharts from 'highcharts';
-import React, { memo } from 'react';
-import ErrorBoundary from '../ErrorBoundary';
+import { Card } from "antd";
+import HighchartsReact from "highcharts-react-official";
+import Highcharts from "highcharts";
+import React, { memo } from "react";
+import ErrorBoundary from "../ErrorBoundary";
 
 interface IChartBar {
   data?: number[];
@@ -11,7 +11,7 @@ interface IChartBar {
   xTitle: string;
 }
 
-const initialLabel: string[] = Array.from({ length: 6 }, () => 'label');
+const initialLabel: string[] = Array.from({ length: 6 }, () => "label");
 const initialData: number[] = Array.from({ length: 6 }, () => 0);
 
 function LineChart({ title, label, xTitle, data }: IChartBar) {
@@ -21,7 +21,7 @@ function LineChart({ title, label, xTitle, data }: IChartBar) {
 
   const lineOptions = {
     chart: {
-      type: 'line',
+      type: "line",
     },
     title: {
       text: title,
@@ -38,9 +38,9 @@ function LineChart({ title, label, xTitle, data }: IChartBar) {
       {
         name: xTitle,
         data: safeData,
-        color: '#4bc0c0',
+        color: "#4bc0c0",
         marker: {
-          symbol: 'circle',
+          symbol: "circle",
         },
       },
     ],

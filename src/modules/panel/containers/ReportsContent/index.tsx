@@ -1,21 +1,31 @@
-import BarChart from '@/common/components/BarChart';
-import LineChart from '@/common/components/LineChart';
-import Skeletons from '@/common/components/Skeleton';
-import { ROLE } from '@/common/constants/role';
-import useCheckRole from '@/common/hooks/useCheckRole';
-import { useAppDispatch, useAppSelector } from '@/common/store';
-import { selUser } from '@/common/store/slices/authSlice';
-import { initReport } from '@/common/store/slices/panelSlice';
-import { Col, Row } from 'antd';
-import { useTranslation } from 'next-i18next';
-import { useEffect } from 'react';
+import { ROLE } from "@/common/constants/role";
+import useCheckRole from "@/common/hooks/useCheckRole";
+import { useAppDispatch, useAppSelector } from "@/common/store";
+import { selUser } from "@/common/store/slices/authSlice";
+import { initReport } from "@/common/store/slices/panelSlice";
+import { Col, Row } from "antd";
+import { useTranslation } from "next-i18next";
+import dynamic from "next/dynamic";
+import { useEffect } from "react";
+
+const Skeletons = dynamic(() => import("@/common/components/Skeleton"), {
+  ssr: false,
+});
+
+const BarChart = dynamic(() => import("@/common/components/BarChart"), {
+  ssr: false,
+});
+
+const LineChart = dynamic(() => import("@/common/components/BarChart"), {
+  ssr: false,
+});
 
 const ReportsContent = () => {
   const user = useAppSelector(selUser);
   const { loading, report } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const checkRole = useCheckRole([ROLE.ENTERPRISE]);
 
@@ -39,18 +49,18 @@ const ReportsContent = () => {
       {checkRole(
         <Col span={24}>
           <BarChart
-            title={t('monthly_sales')}
-            xTitle={t('sales')}
+            title={t("monthly_sales")}
+            xTitle={t("sales")}
             label={report?.sales.label}
             data={report?.sales.data}
           />
-        </Col>
+        </Col>,
       )}
 
       <Col span={24}>
         <LineChart
-          title={t('monthly_revenue')}
-          xTitle={t('revenue')}
+          title={t("monthly_revenue")}
+          xTitle={t("revenue")}
           label={report?.revenue.label}
           data={report?.revenue.data}
         />

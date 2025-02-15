@@ -83,5 +83,7 @@
     "password_min": "Password must be at least 6 characters!",
     "password_max": "Password must be at most 20 characters!",
     "password_required": "Please enter your password!"
-  }
+  },
+
+  "soon": "Coming soon"
 }

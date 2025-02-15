@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
-import authReducer from './slices/authSlice';
-import panelReducer from './slices/panelSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
+import authReducer from "./slices/authSlice";
+import panelReducer from "./slices/panelSlice";
 
 // Create Redux store
 export const store = configureStore({

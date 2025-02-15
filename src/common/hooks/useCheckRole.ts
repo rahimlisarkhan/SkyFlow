@@ -1,6 +1,6 @@
-import { ROLE } from '../constants/role';
-import { useAppSelector } from '../store';
-import { selUser } from '../store/slices/authSlice';
+import { ROLE } from "../constants/role";
+import { useAppSelector } from "../store";
+import { selUser } from "../store/slices/authSlice";
 
 const useCheckRole = (globalRoles?: ROLE[]) => {
   const user = useAppSelector(selUser);

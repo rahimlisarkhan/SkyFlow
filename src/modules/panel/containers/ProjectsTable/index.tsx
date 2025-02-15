@@ -1,20 +1,20 @@
-import ErrorBoundary from '@/common/components/ErrorBoundary';
-import { ROLE } from '@/common/constants/role';
-import useCheckRole from '@/common/hooks/useCheckRole';
-import { useAppDispatch, useAppSelector } from '@/common/store';
-import { selUser } from '@/common/store/slices/authSlice';
-import { initProjects } from '@/common/store/slices/panelSlice';
-import { Table, Skeleton, Empty, Button } from 'antd';
-import { useTranslation } from 'next-i18next';
-import { useCallback, useEffect, useMemo } from 'react';
-import { toast } from 'react-toastify';
+import ErrorBoundary from "@/common/components/ErrorBoundary";
+import { ROLE } from "@/common/constants/role";
+import useCheckRole from "@/common/hooks/useCheckRole";
+import { useAppDispatch, useAppSelector } from "@/common/store";
+import { selUser } from "@/common/store/slices/authSlice";
+import { initProjects } from "@/common/store/slices/panelSlice";
+import { Table, Skeleton, Empty, Button } from "antd";
+import { useTranslation } from "next-i18next";
+import { useCallback, useEffect, useMemo } from "react";
+import { toast } from "react-toastify";
 
 const ProjectsTable = () => {
   const user = useAppSelector(selUser);
   const { loading, projects } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 
@@ -28,24 +28,24 @@ const ProjectsTable = () => {
   const columns = useMemo(() => {
     const headers = [
       {
-        title: '#',
-        dataIndex: 'id',
-        key: 'id',
+        title: "#",
+        dataIndex: "id",
+        key: "id",
       },
       {
-        title: t('title'),
-        dataIndex: 'title',
-        key: 'title',
+        title: t("title"),
+        dataIndex: "title",
+        key: "title",
       },
       {
-        title: t('desc'),
-        dataIndex: 'desc',
-        key: 'desc',
+        title: t("desc"),
+        dataIndex: "desc",
+        key: "desc",
       },
       {
-        title: t('created'),
-        dataIndex: 'created',
-        key: 'created',
+        title: t("created"),
+        dataIndex: "created",
+        key: "created",
       },
     ];
 
@@ -53,7 +53,7 @@ const ProjectsTable = () => {
   }, [t]);
 
   const handleCreate = useCallback(() => {
-    toast.info('Coming soon');
+    toast.info(`${t("soon")}`);
   }, []); // payload for next feature for un-necessary rendering
 
   if (loading) {
@@ -66,8 +66,8 @@ const ProjectsTable = () => {
     <ErrorBoundary>
       {checkRole(
         <Button style={{ marginBottom: 14 }} onClick={handleCreate}>
-          {t('create')} +
-        </Button>
+          {t("create")} +
+        </Button>,
       )}
       <Table
         columns={columns}

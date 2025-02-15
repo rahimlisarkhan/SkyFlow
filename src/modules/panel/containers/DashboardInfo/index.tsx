@@ -1,17 +1,17 @@
-import { Card, Col, Row, Statistic } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
-import useCheckRole from '@/common/hooks/useCheckRole';
-import { useEffect, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '@/common/store';
-import { initDashboard } from '@/common/store/slices/panelSlice';
-import Skeletons from '@/common/components/Skeleton';
-import { useTranslation } from 'next-i18next';
-import ErrorBoundary from '@/common/components/ErrorBoundary';
+import { Card, Col, Row, Statistic } from "antd";
+import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
+import useCheckRole from "@/common/hooks/useCheckRole";
+import { useEffect, useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "@/common/store";
+import { initDashboard } from "@/common/store/slices/panelSlice";
+import Skeletons from "@/common/components/Skeleton";
+import { useTranslation } from "next-i18next";
+import ErrorBoundary from "@/common/components/ErrorBoundary";
 
 const DashboardInfo = () => {
   const checkRole = useCheckRole();
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   const { loading, dashboard } = useAppSelector((state) => state.panel);
 
@@ -32,15 +32,15 @@ const DashboardInfo = () => {
       const item = (
         <Col span={8} key={index}>
           <Card
-            title={t(card.key || '')}
+            title={t(card.key || "")}
             extra={
-              <Icon style={{ color: card.value > 1000 ? 'green' : 'red' }} />
+              <Icon style={{ color: card.value > 1000 ? "green" : "red" }} />
             }
             style={{
-              height: '150px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
+              height: "150px",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
             }}
           >
             <Statistic value={card.value} />

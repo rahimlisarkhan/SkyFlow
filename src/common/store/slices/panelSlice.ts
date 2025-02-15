@@ -1,9 +1,9 @@
-import { PanelAPI } from '@/services/api/panel.api';
-import { EndpointResources } from '@/services/EndpointResources.g';
-import { IError } from '@/types/api.types';
-import { IDashboard, IProject, IReport } from '@/types/panel.types';
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '..';
+import { PanelAPI } from "@/services/api/panel.api";
+import { EndpointResources } from "@/services/EndpointResources.g";
+import { IError } from "@/types/api.types";
+import { IDashboard, IProject, IReport } from "@/types/panel.types";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "..";
 
 interface PanelState {
   dashboard: IDashboard[] | null;
@@ -22,9 +22,9 @@ export const initDashboard = createAsyncThunk<IDashboard[], undefined, IError>(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue('Something went wrong');
+      return rejectWithValue("Something went wrong");
     }
-  }
+  },
 );
 
 export const initProjects = createAsyncThunk<IProject[], undefined, IError>(
@@ -35,9 +35,9 @@ export const initProjects = createAsyncThunk<IProject[], undefined, IError>(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue('Something went wrong');
+      return rejectWithValue("Something went wrong");
     }
-  }
+  },
 );
 
 export const initReport = createAsyncThunk<IReport, undefined, IError>(
@@ -48,13 +48,13 @@ export const initReport = createAsyncThunk<IReport, undefined, IError>(
 
       return response.data;
     } catch (error) {
-      return rejectWithValue('Something went wrong');
+      return rejectWithValue("Something went wrong");
     }
-  }
+  },
 );
 
 const panelSlice = createSlice({
-  name: 'panel',
+  name: "panel",
   initialState: {
     dashboard: null,
     report: null,
@@ -83,11 +83,11 @@ const panelSlice = createSlice({
         (state, action: PayloadAction<IDashboard[]>) => {
           state.loading = false;
           state.dashboard = action.payload;
-        }
+        },
       )
       .addCase(initDashboard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Something went wrong';
+        state.error = action.payload || "Something went wrong";
       })
       //Projects
       .addCase(initProjects.pending, (state) => {
@@ -99,11 +99,11 @@ const panelSlice = createSlice({
         (state, action: PayloadAction<IProject[]>) => {
           state.projects = action.payload;
           state.loading = false;
-        }
+        },
       )
       .addCase(initProjects.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Something went wrong';
+        state.error = action.payload || "Something went wrong";
       })
       //Report
       .addCase(initReport.pending, (state) => {
@@ -115,11 +115,11 @@ const panelSlice = createSlice({
         (state, action: PayloadAction<IReport>) => {
           state.report = action.payload;
           state.loading = false;
-        }
+        },
       )
       .addCase(initReport.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || 'Something went wrong';
+        state.error = action.payload || "Something went wrong";
       });
   },
 });
