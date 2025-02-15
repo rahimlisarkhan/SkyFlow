@@ -13,10 +13,11 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    // "types": ["jest", "@testing-library/jest-dom"],
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
