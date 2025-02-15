@@ -18,7 +18,7 @@ const ProjectsTable = () => {
   const checkRole = useCheckRole([ROLE.PRO, ROLE.ENTERPRISE]);
 
   useEffect(() => {
-    if (projects) return; // First checking -  Already has data.
+    if (projects) return; // First checking -  Already has data. | fetch network checking...
 
     //Second checking - for correct steps if you have user data then request dash. for checking role-base steps
     user && dispatch(initProjects());

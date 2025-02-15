@@ -19,7 +19,7 @@ const DashboardInfo = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (dashboard) return; // First checking -  Already has data.
+    if (dashboard) return; // First checking -  Already has data. | fetch network checking...
 
     //Second checking - for correct steps if you have user data then request dash. for checking role-base steps
     user && dispatch(initDashboard());
