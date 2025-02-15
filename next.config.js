@@ -2,6 +2,9 @@ const { i18n } = require('./next-i18next.config');
 
 module.exports = {
   reactStrictMode: false,
+  images: {
+    domains: ['cloudfront.net', 'd15shllkswkct0.cloudfront.net'], // Add your external domains here
+  },
   i18n,
   transpilePackages: [
     // antd & deps

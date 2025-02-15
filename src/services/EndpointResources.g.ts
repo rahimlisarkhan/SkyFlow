@@ -13,5 +13,6 @@ export class EndpointResources {
     dashboard: '/dashboard',
     charts: '/charts',
     projects: '/projects',
+    information: '/information',
   };
 }

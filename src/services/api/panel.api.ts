@@ -35,4 +35,15 @@ export class PanelAPI {
         errorHandler(error, true);
       });
   }
+
+  public static async infos(): Promise<IResponse<IReport>> {
+    return await Fetcher(
+      EndpointResources.panel.information,
+      INSTANCE_METHODS.GET
+    )
+      .then(responseHandler)
+      .catch((error) => {
+        errorHandler(error, true);
+      });
+  }
 }
