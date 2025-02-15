@@ -7,14 +7,15 @@ import { initDashboard } from '@/common/store/slices/panelSlice';
 import Skeletons from '@/common/components/Skeleton';
 import { useTranslation } from 'next-i18next';
 import ErrorBoundary from '@/common/components/ErrorBoundary';
+import { selUser } from '@/common/store/slices/authSlice';
 
 const DashboardInfo = () => {
   const checkRole = useCheckRole();
 
   const { t } = useTranslation('common');
 
-  const { user } = useAppSelector((state) => state.auth);
   const { loading, dashboard } = useAppSelector((state) => state.panel);
+  const user = useAppSelector(selUser);
 
   const dispatch = useAppDispatch();
 

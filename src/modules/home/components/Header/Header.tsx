@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
 import LanguageDropdown from '@/common/components/LangSelect';
-import { Layout, Menu, Button, Flex } from 'antd';
+import { Layout, Menu, Button, Flex, Avatar, Spin } from 'antd';
 
 import styles from './Header.module.css';
 import { useRouter } from 'next/router';
 import { ROUTER } from '@/common/constants/router';
 import { useTranslation } from 'next-i18next';
+import { useAppSelector } from '@/common/store';
 
 const { Header } = Layout;
 
@@ -15,6 +16,8 @@ interface IHeader {
 
 export function HomeHeader({ error }: IHeader) {
   const router = useRouter();
+  const { user, loading } = useAppSelector((state) => state.auth);
+
   const { t } = useTranslation('common');
 
   const menuItems = useMemo(() => {
@@ -42,6 +45,21 @@ export function HomeHeader({ error }: IHeader) {
     ];
   }, []);
 
+  const userContent = loading ? (
+    <Spin />
+  ) : user ? (
+    <Avatar
+      className={styles.avatar}
+      onClick={() => router.push(ROUTER.DASHBOARD)}
+    >
+      {user?.full_name?.[0]}
+    </Avatar>
+  ) : (
+    <Button type="primary" onClick={() => router.push(ROUTER.LOGIN)}>
+      {t('login')}
+    </Button>
+  );
+
   return (
     <Header className={styles.header}>
       <div className={styles.logo} onClick={() => router.replace(ROUTER.HOME)}>
@@ -57,11 +75,9 @@ export function HomeHeader({ error }: IHeader) {
             defaultSelectedKeys={[router.asPath]}
           />
 
-          <Flex gap={12}>
-            <Button type="primary" onClick={() => router.push(ROUTER.LOGIN)}>
-              {t('login')}
-            </Button>
+          <Flex gap={24}>
             <LanguageDropdown />
+            {userContent}
           </Flex>
         </>
       )}

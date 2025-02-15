@@ -7,6 +7,7 @@ import { IError } from '@/types/api.types';
 import { ILogin } from '@/types/auth.types';
 import { IProfile } from '@/types/profile.types';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '..';
 
 interface AuthState {
   user: IProfile['profile'] | null;
@@ -112,3 +113,5 @@ const authSlice = createSlice({
 export const { logout, reset } = authSlice.actions;
 
 export default authSlice.reducer;
+
+export const selUser = (state: RootState) => state.auth.user;

@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../store';
 import { ROUTER } from '../constants/router';
 import Loading from '../components/Loading';
 import { ROLE } from '../constants/role';
-import { initProfile } from '../store/slices/authSlice';
+import { initProfile, selUser } from '../store/slices/authSlice';
 import { LOCAL_STORE } from '../constants/keys';
 import { useDebounce } from '../hooks/useDebounce';
 
@@ -13,7 +13,7 @@ const withRoleGuard = <P extends object>(
   allowedRoles?: ROLE[]
 ) => {
   const AuthHOC = (props: P) => {
-    const { user } = useAppSelector((state) => state.auth);
+    const { user } = useAppSelector(selUser);
     const router = useRouter();
     const dispatch = useAppDispatch();
 
@@ -35,7 +35,7 @@ const withRoleGuard = <P extends object>(
     }
 
     function handleLoginRedirect() {
-      router.replace(ROUTER.HOME);
+      router.replace(ROUTER.LOGIN);
       debounce(() => {
         setLoading(false);
       });

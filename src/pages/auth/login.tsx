@@ -9,6 +9,9 @@ import MetaSeo from '@/common/components/MetaSeo';
 import { ILogin } from '@/types/auth.types';
 import { useTranslation } from 'next-i18next';
 import TextInput from '@/common/components/TextInput';
+import PageLayout from '@/modules/home/components/PageLayout';
+import { GetServerSideProps } from 'next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const { Title } = Typography;
 
@@ -42,49 +45,59 @@ function Login() {
   });
 
   return (
-    <div className={styles.container}>
-      <MetaSeo title="Login | Skyflow" description="Lorem ipsum" />
+    <PageLayout header footer>
+      <div className={styles.container}>
+        <MetaSeo title="Login | Skyflow" description="Lorem ipsum" />
 
-      <Card className={styles.card}>
-        <Title level={2} className={styles.title}>
-          Login to SkyFlow
-        </Title>
+        <Card className={styles.card}>
+          <Title level={2} className={styles.title}>
+            Login to SkyFlow
+          </Title>
 
-        {/* Email Field */}
-        <TextInput
-          label="Username"
-          name="username"
-          placeholder="Enter your email"
-          value={formik.values.username}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.errors.username}
-        />
+          {/* Email Field */}
+          <TextInput
+            label="Username"
+            name="username"
+            placeholder="Enter your email"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.errors.username}
+          />
 
-        {/* Password Field */}
-        <TextInput
-          label="Password"
-          name="password"
-          password
-          placeholder="Enter your password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={formik.errors.password}
-        />
+          {/* Password Field */}
+          <TextInput
+            label="Password"
+            name="password"
+            password
+            placeholder="Enter your password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.errors.password}
+          />
 
-        {/* Login Button */}
-        <Button
-          type="primary"
-          htmlType="submit"
-          onClick={() => formik.handleSubmit()}
-          block
-        >
-          Login
-        </Button>
-      </Card>
-    </div>
+          {/* Login Button */}
+          <Button
+            type="primary"
+            htmlType="submit"
+            onClick={() => formik.handleSubmit()}
+            block
+          >
+            Login
+          </Button>
+        </Card>
+      </div>
+    </PageLayout>
   );
 }
 
 export default withRoleGuard(Login);
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale as string, ['common'])),
+    },
+  };
+};

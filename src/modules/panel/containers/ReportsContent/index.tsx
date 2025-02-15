@@ -4,13 +4,14 @@ import Skeletons from '@/common/components/Skeleton';
 import { ROLE } from '@/common/constants/role';
 import useCheckRole from '@/common/hooks/useCheckRole';
 import { useAppDispatch, useAppSelector } from '@/common/store';
+import { selUser } from '@/common/store/slices/authSlice';
 import { initReport } from '@/common/store/slices/panelSlice';
 import { Col, Row } from 'antd';
 import { useTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 
 const ReportsContent = () => {
-  const { user } = useAppSelector((state) => state.auth);
+  const user = useAppSelector(selUser);
   const { loading, report } = useAppSelector((state) => state.panel);
 
   const dispatch = useAppDispatch();
