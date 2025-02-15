@@ -13,12 +13,11 @@ const withRoleGuard = <P extends object>(
   allowedRoles?: ROLE[]
 ) => {
   const AuthHOC = (props: P) => {
-    const { user } = useAppSelector(selUser);
+    const user = useAppSelector(selUser);
     const router = useRouter();
     const dispatch = useAppDispatch();
 
     const [loading, setLoading] = useState(true);
-
     const debounce = useDebounce(250);
 
     function handleUserRedirect() {
