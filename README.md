@@ -91,7 +91,7 @@ npm run dev
     );
   }
 
-  export default withRoleGuard(Reports, [ROLES.PRO, ROLES.ENTERPRISE]);
+  export default ProjectsTable
   ```
 
 - **Multi-Language Support (i18n)**
